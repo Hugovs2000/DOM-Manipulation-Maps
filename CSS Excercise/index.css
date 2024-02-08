@@ -1,4 +1,6 @@
 body{
+    margin: 0;
+    font-family: sans-serif;
     width: 100%;
     height: 100vh;
 }
@@ -13,14 +15,251 @@ body{
 }
 
 .sidebar{
-    width: 25%;
+    width: 20%;
     background-color: whitesmoke;
 }
 
+.sidebar-top{
+    display: flex;
+    align-items: center;
+    height: 10%;
+    background-color: transparent;
+    justify-content: center;
+}
+
+.sidebar-middle{
+    position: relative;
+    height: 80%;
+    align-items: center;
+    display: flex;
+    background-color: transparent;
+    justify-content: center;
+}
+
+.sidebar-bottom{
+    height: 10%;
+    align-items: center;
+    display: flex;
+    background-color: transparent;
+    justify-content: space-around;
+    flex-shrink: auto;
+
+    .logo{
+        border-radius: 20px;
+        background-color: black;
+        height: 20px;
+        width: 20px;
+    }
+}
+
 .main-content{
-    width: 75%;
-    background: url("pngtree-lakescape-landscape-nature-scenery-hd-image_2950137.jpg");
+    display: flex;
+    width: 80%;
+    /* background-color: rgb(104, 148, 245); */
+    background: url("bg-island.jpeg");
     background-repeat: no-repeat;
     background-size: 100% 100%;
     object-fit: cover;
+    flex-flow: column nowrap;
 }
+
+.content-top{
+    display: flex;
+    align-items: center;
+    height: 10%;
+    justify-content: flex-end;
+
+    .top-container{
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        background-color: transparent;
+        align-items: center;
+
+        .options-container{
+            width: 40%;
+            display: flex;
+            justify-content: space-around;
+        
+            .btn-sign-up{
+                width: 25%;
+                padding: 5px;
+                background-color: whitesmoke;
+                border-radius: 10%;
+                text-align: center;
+            }
+
+            .btn-sign-up:hover{
+                opacity: 0.7;
+            }
+
+            .login{
+                color: whitesmoke;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: bold;
+            }
+            .login:hover{
+                opacity: 0.7;
+            }
+        
+            .lang-selector{
+                display: flex;
+                padding: 5px;
+                font-size: 2.2vh;
+                font-weight: bolder;
+                text-align: center;
+                text-decoration: none;
+                background: whitesmoke;
+                border-radius: 10%;
+                color: black;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .lang-selector:hover{
+                opacity: 0.7;
+            }
+        }
+
+        .menu{
+            height: 10%;
+            color: whitesmoke;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+        }
+
+        .menu:hover{
+            opacity: 0.7;
+        }
+    }
+
+}
+
+.content-middle{
+    height: 80%;
+    align-items: center;
+    display: flex;
+    background-color: transparent;
+    justify-content: center;
+}
+
+.content-bottom{
+    height: 10%;
+    align-items: center;
+    display: flex;
+    background-color: transparent;
+    justify-content: center;
+
+    .help-container{
+        display: flex;        
+        width: 90%;
+        justify-content: flex-end;
+        
+        .help{
+            border-radius: 20px;
+            background-color: black;
+            height: 20px;
+            width: 20px;
+        }
+    }
+}
+
+.card-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 215%;
+    height: 80%;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: auto;
+    top: 10%;
+    left: 25%;
+    background-color: white;
+    border-radius: 3%;
+    box-shadow: 1px 1px 20px rgba(0, 0, 0, 0.199);
+}
+
+.slogan-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    position: absolute;
+    width: 49%;
+    height: 50%;
+    top: 25%;
+    left: 52%;
+    background-color: transparent;
+    color: white;
+    
+}
+
+#welcome{
+    margin: 0rem 0rem 0rem;
+    font-weight: 400;
+    font-size: 2.6vw;
+}
+
+#wanderlust{
+    margin: 0rem 0rem 0.5rem;
+    display: flex;
+    font-size: 5vw;
+}
+
+#jobs{
+    margin: 0rem;
+    font-weight: 300;
+    font-size: 2vw;
+}
+
+.fa{
+    padding: 7px;
+    font-size: 85%;
+    width: 20px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 50%;
+}
+  
+.fa:hover{
+    opacity: 0.7;
+}
+
+.fa-facebook{
+    background: #5ec8ec;
+    color: white;
+}
+
+.fa-pinterest {
+    background: #5ec8ec;
+    color: white;
+  }
+
+.fa-instagram {
+    background: #5ec8ec;
+    color: white;
+}
+
+.help-icon{
+    padding: 7px;
+    font-size: 2.2vh;
+    font-weight: bolder;
+    width: 20px;
+    
+    text-align: center;
+    text-decoration: none;
+    border-radius: 50%;
+    background: whitesmoke;
+    color: red;
+}
+
+.help-icon:hover{
+    opacity: 0.7;
+}
+
