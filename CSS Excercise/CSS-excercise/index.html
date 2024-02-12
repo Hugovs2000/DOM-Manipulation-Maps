@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Document</title>
+    <script src="https://kit.fontawesome.com/2ea26dfd19.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="sidebar-top">
+                <div><img src="img/logo.png"></div>
+            </div>
+            <div class="sidebar-middle"></div>
+            <div class="sidebar-bottom">
+                <i class="fa fa-facebook"></i>
+                <i class="fa fa-pinterest"></i>
+                <i class="fa fa-instagram"></i>
+            </div>
+        </div>
+        <div class="main-content">
+            <div class="content-top">
+                <div class="top-container">
+                    <div class="services-container">
+                        <div class="menu">Services</div>
+                        <div class="menu">Discovery</div>
+                        <div class="menu">Weather</div>
+                        <div class="menu">My Booking</div>
+                    </div>
+                        <div class="options-container">
+                        <ul>
+                            <li>
+                                <div><img src="https://flagsapi.com/ZA/flat/64.png"></div>
+                                <ul class="dropdown">
+                                    <li><img src="https://flagsapi.com/GB/flat/64.png">ENG</li>
+                                    <li><img src="https://flagsapi.com/DE/flat/64.png">GER</li>
+                                    <li><img src="https://flagsapi.com/FR/flat/64.png">FRE</li>
+                                    <li><img src="https://flagsapi.com/ES/flat/64.png">ESP</li>                
+                                </ul>
+                            </li>
+                        </ul>
+                        <button class="login">Login</button>
+                        <button class="btn-sign-up">Sign Up</button>
+                    </div>
+                </div>
+            </div>
+            <div class="content-middle"></div>
+            <div class="content-bottom">
+                <div class="help-container">
+                    <i class="fa-solid fa-circle-question"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="floating-container">
+        <div class="card-container">
+            <div class="grid-container">
+                <div class="transport">
+                    <nav class="navbar">
+                        <ul>
+                            <li><input type="radio" id="hotel" name="transport" checked><label for="hotel"><i class="fa fa-hotel"></i><h5>Hotel</h5></label></li>
+                            <li><input type="radio" id="flight" name="transport"><label for="flight"><i class="fa fa-plane"></i><h5>Flight</h5></label></li>
+                            <li><input type="radio" id="taxi" name="transport"><label for="taxi"><i class="fa fa-taxi"></i><h5>Taxi</h5></label></li>
+                            <li><input type="radio" id="car" name="transport"><label for="car"><i class="fa fa-bus"></i><h5>Car</h5></label></li>
+                        </ul>
+                    </nav>
+                </div>                              
+                <div class="dest">
+                    <div id="heading">
+                        <h4>Destination:</h4>
+                    </div>
+                    <div>
+                        <i class="fa fa-location-dot"></i>
+                        <input type="text" name="dest" id="" placeholder="Surat Thani, Thailand"></input>
+                    </div>
+                </div>
+                <div class="in-date">
+                    <div id="heading">
+                        <h4>Check-in Date:</h4>
+                    </div>
+                    <div>
+                        <i class="fa fa-calendar-days"></i>
+                        <input type="date" name="in-date" id=""></input>
+                    </div>
+                </div>
+                <div class="out-date">
+                    <div id="heading">
+                        <h4>Check-out Date:</h4>
+                    </div>
+                    <div>
+                        <i class="fa fa-calendar-days"></i>
+                        <input type="date" name="out-date" id=""></input>
+                    </div>
+                </div>
+                <div class="adults">
+                    <div id="heading">
+                        <h4>Adults:</h4>
+                    </div>
+                    <div>
+                        <i class="fa fa-user"></i>
+                        <input type="number" name="adults" id="" placeholder="1"></input>
+                    </div>
+                </div>
+                <div class="children">
+                    <div id="heading">
+                        <h4>Children:</h4>
+                    </div>
+                    <div>
+                        <i class="fa fa-child"></i>
+                        <input type="number" name="children" id="" placeholder="0"></input>
+                    </div>
+                </div>
+                <div class="rooms">
+                    <div id="heading">
+                        <h4>Rooms:</h4>
+                    </div>
+                    <div>
+                        <i class="fa fa-suitcase"></i>
+                        <input type="number" name="rooms" id="" placeholder="1"></input>
+                    </div>
+                </div>
+                <button class="find"><i class="fa-solid fa-magnifying-glass"></i>Find</button>
+            </div>
+        </div>
+        <div class="slogan-container">
+            <h2 id="welcome">Welcome to</h2>
+            <h1 id="wanderlust">WANDERLUST.</h1>
+            <h3 id="jobs">Jobs fill your pocket, adventures fill your soul.</h3>
+        </div>
+    </div>
+</body>
+
+
+</html>
