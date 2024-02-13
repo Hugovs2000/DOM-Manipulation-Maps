@@ -1,0 +1,17 @@
+html, body{
+  margin: 0;
+  background-color: lightgray;
+}
+
+.container{
+  display: block;
+  height: auto;
+  background-color: aqua;
+}
+
+#map{
+  height: auto;
+  min-height: 300px;  
+  width: auto;
+  max-width: 100%;
+}

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenSky REST API</title>
+</head>
+<body>
+    <h1>Hello Flights</h1>
+</body>
+
+<script>
+    fetch('https://opensky-network.org/api/states/all')
+        .then(response => response.json())
+        .then(jsonResponse => console.log(jsonResponse))
+        .catch(error => console.error(error))
+        .finally(() => console.log("All done"))
+</script>
+
+</html>
