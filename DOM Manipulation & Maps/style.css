@@ -1,17 +1,72 @@
-html, body{
-  margin: 0;
-  background-color: lightgray;
-}
-
-.container{
-  display: block;
+html,
+body {
   height: auto;
-  background-color: aqua;
-}
-
-#map{
-  height: auto;
-  min-height: 300px;  
   width: auto;
-  max-width: 100%;
+  margin: 0;
+  background-color: pink;
+  font-family: sans-serif;
+}
+
+.container {
+  height: 100%;
+  min-height: 844px;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 60px 1fr 60px;
+  grid-template-areas:
+    "top-section"
+    "middle-section"
+    "bottom-section";
+  background-color: whitesmoke;
+
+  .top-section {
+    grid-area: top-section;
+    display: flex;
+    width: 100%;
+    background-color: rgb(20, 190, 220);
+    justify-content: center;
+    align-items: center;
+  }
+
+  .middle-section {
+    grid-area: middle-section;
+    display: flex;
+    flex-flow: column nowrap;
+    background-color: whitesmoke;
+    justify-content: space-between;
+
+    #map {
+      height: 70%;
+      border: 5px solid white;
+    }
+    .lap-selction-container {
+      padding: 5px;
+      height: 30%;
+      width: 100%;
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      flex-flow: column nowrap;
+
+      div {
+        margin: 1rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+
+        h4 {
+          margin: 0px;
+        }
+      }
+    }
+  }
+
+  .bottom-section {
+    grid-area: bottom-section;
+    display: flex;
+    width: 100%;
+    background-color: rgb(20, 190, 220);
+    justify-content: center;
+    align-items: center;
+  }
 }

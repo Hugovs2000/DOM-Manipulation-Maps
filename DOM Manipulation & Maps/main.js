@@ -1,28 +1,38 @@
-import './style.css'
+import generateMap, { putCircle } from "./mapsetup";
+import getAndSetLocal from "./requests";
+import "./style.css";
 
-let map = L.map('map').setView([-29.697411, 30.525229], 13);
+let map = generateMap(-29.697411, 30.525229);
 
-// Add a marker on the map
-let marker = L.marker([51.5, -0.09]).addTo(map);
+const handleCallback = (resJSON) => {
+  let counter = 0;
+  const timer = setInterval(() => {
+    if (
+      !(
+        resJSON?.dataSet?.[counter]?.["Lat."] &&
+        resJSON?.dataSet?.[counter]?.["Lon."]
+      )
+    ) {
+      throw new Error("Can not find");
+    }
 
-// Show map
-L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    minZoom: 18,
-    maxZoom: 20,
-    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-}).addTo(map);
+    let long = resJSON.dataSet[counter]["Lon."];
+    let lat = resJSON.dataSet[counter]["Lat."];
 
-// Add circle to map
-let circle = L.circle([-29.697411, 30.5252299], {
-  color: 'blue',
-  fillColor: 'blue',
-  fillOpacity: 1,
-  radius: 1
-}).addTo(map);
+    lat = lat * 0.000001;
+    long = long * 0.000001;
 
-let circle2 = L.circle([-29.697434, 30.525509], {
-  color: 'green',
-  fillColor: 'green',
-  fillOpacity: 1,
-  radius: 1
-}).addTo(map);
+    putCircle(map, lat, long);
+
+    if (counter < resJSON.dataSet.length - 1) {
+      counter += 1;
+    } else {
+      clearInterval(timer);
+    }
+  }, 30);
+  console.log(resJSON);
+};
+
+let lapNum = 1;
+
+getAndSetLocal(lapNum, handleCallback, (error) => console.error(error));
