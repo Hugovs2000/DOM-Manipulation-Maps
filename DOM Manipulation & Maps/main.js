@@ -1,10 +1,12 @@
 import generateMap, { putCircle } from "./mapsetup";
-import getAndSetLocal from "./requests";
+import getAllRuns, { getAndSetLocal } from "./requests";
 import "./style.css";
 
 let map = generateMap(-29.697411, 30.525229);
+let filename = undefined;
+let lapNum = 2;
 
-const handleCallback = (resJSON) => {
+const lapCallback = (resJSON) => {
   let counter = 0;
   const timer = setInterval(() => {
     if (
@@ -30,9 +32,13 @@ const handleCallback = (resJSON) => {
       clearInterval(timer);
     }
   }, 30);
-  console.log(resJSON);
 };
 
-let lapNum = 1;
+const allRunsCallback = (allRunsJSON) => {
+  filename = allRunsJSON[0];
+  getAndSetLocal(filename, lapNum, lapCallback, (error) =>
+    console.error(error)
+  );
+};
 
-getAndSetLocal(lapNum, handleCallback, (error) => console.error(error));
+getAllRuns(allRunsCallback, (error) => console.error(error));
