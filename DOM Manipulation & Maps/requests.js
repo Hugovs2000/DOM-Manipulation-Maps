@@ -10,8 +10,8 @@ export default function getAllRuns(callback, errorCallback) {
 }
 
 //Get all laps per session
-export function getAllLapsPerSession(filename, callback, errorCallback) {
-  fetch(`https://go-kart-api.onrender.com/runs/${filename}/laps`)
+export function getAllLapsPerRun(filename, callback, errorCallback) {
+  fetch(`https://go-kart-api.onrender.com/runs/${filename}/`)
     .then((response) => response.json())
     .then((res) => {
       callback(res);
@@ -21,7 +21,7 @@ export function getAllLapsPerSession(filename, callback, errorCallback) {
 }
 
 // Get by Lap
-export function getAndSetLocal(filename, lapNum, callback, errorCallback) {
+export function getLap(filename, lapNum, callback, errorCallback) {
   fetch(`https://go-kart-api.onrender.com/runs/${filename}/laps/${lapNum}`)
     .then((response) => response.json())
     .then((res) => {
