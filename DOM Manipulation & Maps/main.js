@@ -1,11 +1,10 @@
-import generateMap, { putCircle } from "./mapsetup";
+import generateMap, { cleanMap, putCircle } from "./mapsetup";
 import getAllRuns, { getAllLapsPerRun, getLap } from "./requests";
 import "./style.css";
 
 let map = generateMap(-29.697411, 30.525229);
 let filename = undefined;
 let lapNum = 1;
-let numOfLaps = 0;
 
 const lapCallback = (lapJSON) => {
   let counter = 0;
@@ -25,7 +24,7 @@ const lapCallback = (lapJSON) => {
     lat = lat * 0.000001;
     long = long * 0.000001;
 
-    putCircle(map, lat, long);
+    putCircle(lat, long);
 
     if (counter < lapJSON.dataSet.length - 1) {
       counter += 1;
@@ -36,14 +35,29 @@ const lapCallback = (lapJSON) => {
 };
 
 const runCallback = (runsJSON) => {
-  numOfLaps = runsJSON.lapSummaries.length;
+  let btnNum = 1;
+
+  for (let lap in runsJSON.lapSummaries) {
+    let buttonContainer = document.getElementById("select-button");
+    let button = document.createElement("button");
+    button.id = `${btnNum}`;
+    button.textContent = `${btnNum}`;
+
+    buttonContainer.appendChild(button);
+
+    button.addEventListener("click", function btnClick() {
+      cleanMap();
+      lapNum = button.id;
+      getLap(filename, lapNum, lapCallback, (error) => console.error(error));
+    });
+
+    btnNum += 1;
+  }
 };
 
 const allRunsCallback = (allRunsJSON) => {
   filename = allRunsJSON[0];
   getAllLapsPerRun(filename, runCallback, (error) => console.error(error));
-  getLap(filename, lapNum, lapCallback, (error) => console.error(error));
-  console.log(allRunsJSON);
 };
 
 getAllRuns(allRunsCallback, (error) => console.error(error));

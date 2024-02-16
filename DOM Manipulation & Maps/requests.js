@@ -6,7 +6,7 @@ export default function getAllRuns(callback, errorCallback) {
       callback(res);
     })
     .catch((error) => errorCallback(error))
-    .finally(() => console.log("All done"));
+    .finally(() => console.log("Got all the Runs"));
 }
 
 //Get all laps per session
@@ -17,7 +17,7 @@ export function getAllLapsPerRun(filename, callback, errorCallback) {
       callback(res);
     })
     .catch((error) => errorCallback(error))
-    .finally(() => console.log("All done"));
+    .finally(() => console.log("All the Laps per Run"));
 }
 
 // Get by Lap
@@ -28,5 +28,5 @@ export function getLap(filename, lapNum, callback, errorCallback) {
       callback(res);
     })
     .catch((error) => errorCallback(error))
-    .finally(() => console.log("All done"));
+    .finally(() => console.log(`Got Lap: ${lapNum}`));
 }
