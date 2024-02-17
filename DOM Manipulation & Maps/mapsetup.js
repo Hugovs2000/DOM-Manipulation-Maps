@@ -1,4 +1,7 @@
 let map = L.map("map");
+let circles = L.layerGroup();
+let circle = L.circle();
+
 export default function generateMap(lat, long) {
   map = map.setView([lat, long], 17);
 
@@ -9,16 +12,19 @@ export default function generateMap(lat, long) {
       '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
   }).addTo(map);
 }
-let circles = 0;
+
 export function putCircle(lat, long) {
-  let circle = L.circle([lat, long], {
+  circle = L.circle([lat, long], {
     color: "obsidian",
-    fillColor: "blue",
+    fillColor: "rgb(46, 120, 240)",
     fillOpacity: 1,
     radius: 1,
   });
 
-  circles = L.layerGroup([circle]).addTo(map);
+  circles.addLayer(circle);
+  circles.addTo(map);
 }
 
-export function cleanMap() {}
+export function cleanMap() {
+  circles.clearLayers();
+}

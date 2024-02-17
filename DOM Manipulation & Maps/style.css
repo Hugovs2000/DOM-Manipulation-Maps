@@ -1,87 +1,114 @@
+:root {
+  --theme-color: rgb(46, 120, 240);
+}
+
 html,
 body {
   height: 100%;
   margin: 0;
   background-color: pink;
-  font-family: sans-serif;
+  font-family: "Anta", sans-serif;
 }
 
 .container {
   height: 100%;
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 60px 1fr 60px;
+  grid-template-rows: 75px 1fr;
   grid-template-areas:
     "top-section"
-    "middle-section"
-    "bottom-section";
+    "middle-section";
   background-color: whitesmoke;
 
   .top-section {
     grid-area: top-section;
     display: flex;
-    width: 100%;
-    background-color: rgb(20, 190, 220);
+
+    background-color: var(--theme-color);
     justify-content: center;
     align-items: center;
+
+    #heading {
+      color: whitesmoke;
+      display: flex;
+    }
+
+    #details {
+      color: whitesmoke;
+      font-size: 1.5rem;
+      margin: 1.5rem;
+      text-align: center;
+    }
   }
 
   .middle-section {
+    position: relative;
     grid-area: middle-section;
     display: flex;
     flex-flow: column nowrap;
     background-color: whitesmoke;
-    justify-content: space-between;
 
     #map {
-      height: 70%;
-      border: 5px solid white;
+      z-index: 0;
+      height: 100%;
     }
+
     .lap-selction-container {
-      padding: 5px;
-      height: 30%;
+      width: 99.46%;
+      position: absolute;
+      bottom: 0;
+      top: 90.5%;
+      /* width: 100%; */
       display: flex;
-      justify-content: flex-start;
-      align-items: flex-start;
+      background-color: whitesmoke;
+      border-radius: 20px 20px 0px 0px;
+      border: 2px white solid;
+      box-shadow: 0 0 10px 0px gray;
+      transition: 1.5s ease;
+
+      align-items: center;
       flex-flow: column nowrap;
 
-      h4 {
-        margin: 1rem 0rem;
+      #collapse {
+        display: flex;
+        flex: 0 0 auto;
+        margin: 0.5rem;
+        height: 10px;
+        width: 50px;
+        background-color: lightgray;
+        border-radius: 10px;
+      }
+
+      h3 {
+        margin: 0.7rem 0rem;
       }
 
       #select-button {
-        margin: 1rem 0rem;
+        margin: 1rem 1rem;
         display: flex;
         flex-wrap: wrap;
         gap: 0.5rem;
         justify-content: center;
+        align-items: center;
 
         button {
-          height: 40px;
-          width: 30px;
+          height: 50px;
+          width: 35px;
+          background-color: var(--theme-color);
+          border: 0;
+          border-radius: 5px;
+          color: whitesmoke;
+          font-size: 1rem;
         }
         button:hover {
-          scale: 1.1;
+          scale: 1.2;
           box-shadow: 20px black;
         }
       }
-
-      /* div {
-        margin: 1rem;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-
-      }*/
     }
-  }
-
-  .bottom-section {
-    grid-area: bottom-section;
-    display: flex;
-    width: 100%;
-    background-color: rgb(20, 190, 220);
-    justify-content: center;
-    align-items: center;
+    .lap-selction-container:hover {
+      top: 70%;
+      transition: 1.5s ease;
+    }
   }
 }

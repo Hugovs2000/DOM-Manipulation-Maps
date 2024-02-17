@@ -4,6 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DOM Manipulation & Maps</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anta&display=swap"
+      rel="stylesheet" />
     <link rel="stylesheet" href="style.css" />
     <link
       rel="stylesheet"
@@ -14,21 +19,16 @@
   <body>
     <div class="container">
       <div class="top-section">
-        <h1>Go-Kart Simulator</h1>
+        <h1 id="heading">Go-Kart Simulator</h1>
       </div>
       <div class="middle-section">
         <div id="map"></div>
         <div class="lap-selction-container">
-          <h4>Select Lap:</h4>
+          <div id="collapse"></div>
+          <h3>Select Lap</h3>
           <div id="select-button"></div>
         </div>
       </div>
-      <div class="bottom-section">
-        <h1>Bottom</h1>
-      </div>
-    </div>
-    <div>
-      <h1></h1>
     </div>
 
     <script type="module" src="/main.js"></script>

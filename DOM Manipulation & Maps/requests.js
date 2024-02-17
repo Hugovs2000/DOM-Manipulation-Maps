@@ -17,7 +17,7 @@ export function getAllLapsPerRun(filename, callback, errorCallback) {
       callback(res);
     })
     .catch((error) => errorCallback(error))
-    .finally(() => console.log("All the Laps per Run"));
+    .finally(() => console.log("Got all the Laps per Run"));
 }
 
 // Get by Lap
