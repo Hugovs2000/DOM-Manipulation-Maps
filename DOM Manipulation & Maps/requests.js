@@ -3,6 +3,9 @@ export default function getAllRuns(callback, errorCallback) {
   fetch(`https://go-kart-api.onrender.com/runs`)
     .then((response) => response.json())
     .then((res) => {
+      if (!res) {
+        throw new Error("Cannot find Run");
+      }
       callback(res);
     })
     .catch((error) => errorCallback(error))
@@ -14,6 +17,9 @@ export function getAllLapsPerRun(filename, callback, errorCallback) {
   fetch(`https://go-kart-api.onrender.com/runs/${filename}/`)
     .then((response) => response.json())
     .then((res) => {
+      if (!res?.lapSummaries) {
+        throw new Error("Cannot find Laps for Run");
+      }
       callback(res);
     })
     .catch((error) => errorCallback(error))
