@@ -1,2 +1,2 @@
-# Launchpad-2024
-Repo concerning all DVT Launchpad coding.
+# DOM Manipulation & Maps Part 1
+Repo concerning DOM Manipulation & Maps Part 1 project.
