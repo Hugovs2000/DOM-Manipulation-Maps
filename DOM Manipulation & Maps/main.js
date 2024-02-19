@@ -6,7 +6,7 @@ import generateMap, {
   removeLayers,
 } from "./mapsetup";
 import getAllRuns, { getAllLapsPerRun, getLap } from "./requests";
-import "./style.css";
+import "./style.scss";
 import addButton, { addLapDetails } from "./ui-manip";
 
 let map;
