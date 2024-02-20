@@ -1,0 +1,103 @@
+@mixin theme($theme: rgb(46, 120, 240), $accent: whitesmoke) {
+  background-color: $theme;
+  color: $accent;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: "Anta", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+// Mobile Design
+@media screen and (width < 800px) {
+  .container {
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 100px 1fr 100px;
+    grid-template-areas:
+      "top-section"
+      "middle-section"
+      "bottom-section";
+
+    .top-section {
+      grid-area: top-section;
+      z-index: 1;
+      border-left: 2px solid white;
+      border-right: 2px solid white;
+      border-bottom: 2px solid white;
+      display: flex;
+      @include theme;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 0 10px 0px gray;
+
+      #heading {
+        color: whitesmoke;
+        display: flex;
+      }
+    }
+
+    .middle-section {
+      grid-area: middle-section;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-flow: column nowrap;
+
+      .img-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      #logo {
+        max-width: 400px;
+      }
+
+      .slogan {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-flow: column nowrap;
+        height: 100px;
+
+        h2 {
+          text-align: center;
+          margin: 0rem 2rem 0rem;
+          span {
+            color: rgb(46, 120, 240);
+          }
+        }
+        h3 {
+          text-align: center;
+          margin: 0rem 4rem;
+          span {
+            color: rgb(46, 120, 240);
+          }
+        }
+      }
+    }
+
+    .bottom-section {
+      grid-area: bottom-section;
+      @include theme($theme: transparent);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      #nextpage {
+        @include theme();
+        padding: 15px;
+        border-radius: 10px;
+        text-decoration: none;
+        cursor: pointer;
+      }
+    }
+  }
+}
