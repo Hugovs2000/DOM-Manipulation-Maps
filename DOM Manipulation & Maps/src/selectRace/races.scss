@@ -8,6 +8,7 @@ body {
   height: 100%;
   margin: 0;
   font-family: "Anta", sans-serif;
+  background-color: aliceblue;
 }
 
 * {
@@ -15,7 +16,7 @@ body {
 }
 
 // Mobile Design
-@media screen and (width < 800px) {
+@media screen and (width < 10000px) {
   .container {
     height: 100%;
     display: grid;
@@ -51,35 +52,39 @@ body {
       align-items: center;
       flex-flow: column nowrap;
 
-      .img-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-      #logo {
-        max-width: 400px;
-      }
+      #select-race {
+        display: inline;
 
-      .slogan {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-flow: column nowrap;
-        height: 100px;
+        div:hover {
+          scale: 1.2;
+          box-shadow: 0 0 10px 5px rgb(46, 120, 240);
+        }
 
         h2 {
-          text-align: center;
-          margin: 0rem 2rem 0rem;
-          span {
-            color: rgb(46, 120, 240);
-          }
+          display: flex;
+          justify-content: center;
+          margin: 0;
         }
-        h3 {
-          text-align: center;
-          margin: 0rem 4rem;
-          span {
-            color: rgb(46, 120, 240);
-          }
+
+        h3,
+        h4 {
+          margin: 0;
+          display: flex;
+          align-items: flex-start;
+        }
+
+        #session {
+          padding: 0.3rem 0 1rem;
+          display: flex;
+          justify-content: center;
+          border-bottom: 1px solid rgb(46, 120, 240);
+        }
+
+        #laps {
+          padding: 1rem 0 0;
+          border-top: 1px solid rgb(46, 120, 240);
+          display: flex;
+          justify-content: center;
         }
       }
     }
@@ -97,6 +102,8 @@ body {
         border-radius: 10px;
         text-decoration: none;
         cursor: pointer;
+        border: 2px solid white;
+        box-shadow: 0 0 10px 0px gray;
       }
     }
   }
