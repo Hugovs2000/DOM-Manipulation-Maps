@@ -57,6 +57,26 @@ body {
       display: flex;
       flex-flow: column nowrap;
       background-color: whitesmoke;
+      position: relative;
+
+      #return {
+        z-index: 1;
+        cursor: pointer;
+        position: absolute;
+        top: 0.5rem;
+        right: 0.5rem;
+        border-radius: 10px;
+        background-color: rgb(46, 120, 240);
+        padding: 8px;
+        text-decoration: none;
+        color: whitesmoke;
+        border: 2px solid whitesmoke;
+        box-shadow: 0 0 7px 0px gray;
+      }
+      #return:hover {
+        scale: 1.2;
+        opacity: 0.7;
+      }
 
       #map {
         z-index: 0;
