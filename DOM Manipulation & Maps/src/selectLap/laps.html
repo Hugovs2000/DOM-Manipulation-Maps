@@ -20,11 +20,17 @@
   <body>
     <div id="all" class="container">
       <div class="top-section">
-        <h1 id="heading">Go-Kart Simulator</h1>
+        <div class="heading-container">
+          <h1 id="heading">Go-Kart Simulator</h1>
+        </div>
         <div class="lap-selction-container">
           <div id="collapse"></div>
-          <h3>Select Lap</h3>
+          <h2>Select Lap:</h2>
           <div id="select-button"></div>
+        </div>
+        <div class="lap-details-container">
+          <h2>Lap details:</h2>
+          <div id="lap-details"></div>
         </div>
       </div>
       <div class="middle-section">
@@ -33,7 +39,7 @@
       </div>
     </div>
 
-    <script type="module" src="laps.js"></script>
+    <script type="module" src="laps.js" defer></script>
   </body>
 </html>
 
