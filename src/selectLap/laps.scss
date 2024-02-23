@@ -151,7 +151,7 @@ body {
   }
 }
 
-@media screen and (width >= 500px) {
+@media screen and (width >= 768px) {
   .container {
     height: 100%;
     display: grid;
@@ -186,8 +186,8 @@ body {
         @include theme($theme: transparent);
         border: 0;
         box-shadow: none;
-        transition: 0;
-        translate: 0 0;
+        transition: none;
+        translate: none;
         display: flex;
         align-items: center;
         flex-flow: column nowrap;

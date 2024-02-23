@@ -21,7 +21,6 @@ const lapCallback = (lapJSON) => {
 };
 
 const kartingRunCallback = (runsJSON) => {
-  console.log(runsJSON);
   for (let btnNum = 1; btnNum <= runsJSON.lapSummaries.length; btnNum++) {
     let button = addLapButton(btnNum, runsJSON);
 
