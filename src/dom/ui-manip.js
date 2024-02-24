@@ -123,7 +123,7 @@ export function addLapDetails(runsJSON, lapNum) {
 
 export function createRaceCard(runsJSON) {
   const anchorContainer = document.createElement("a");
-  anchorContainer.href = "../selectLap/index.html";
+  anchorContainer.href = "../selectLap/";
   anchorContainer.style = `
     text-decoration: none;
     width: 250px;
