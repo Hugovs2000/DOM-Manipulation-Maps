@@ -1,10 +1,10 @@
 import { lapTimer, stopTimer } from "../utility/timer";
 
 let map = L.map("map");
-let circles = L.layerGroup();
+const circles = L.layerGroup();
 let circle = L.circle();
 
-let polylines = L.layerGroup();
+const polylines = L.layerGroup();
 let latlngs = [];
 
 export default function generateMap(lat, long) {
