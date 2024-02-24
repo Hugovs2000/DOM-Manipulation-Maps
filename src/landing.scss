@@ -1,0 +1,145 @@
+$main-color: rgb(46, 120, 240);
+
+@mixin theme($theme: $main-color, $accent: whitesmoke) {
+  background-color: $theme;
+  color: $accent;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: "Anta", sans-serif;
+  overflow-y: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.container {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 11% 1fr 15%;
+  grid-template-areas:
+    "top-section"
+    "middle-section"
+    "bottom-section";
+
+  .top-section {
+    grid-area: top-section;
+    @include theme;
+    border-radius: 0px 0px 20px 20px;
+    border-left: 2px solid white;
+    border-right: 2px solid white;
+    border-bottom: 2px solid white;
+    box-shadow: 0 0 10px 0px gray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .middle-section {
+    grid-area: middle-section;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column nowrap;
+
+    .img-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    #logo {
+      max-width: 100%;
+    }
+
+    .slogan {
+      margin: 0.5rem 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-flow: column nowrap;
+
+      h2 {
+        text-align: center;
+        margin: 0rem 2rem 0rem;
+        span {
+          color: $main-color;
+        }
+      }
+      h3 {
+        text-align: center;
+        margin: 0rem 4rem;
+        span {
+          color: $main-color;
+        }
+      }
+    }
+  }
+
+  .bottom-section {
+    grid-area: bottom-section;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    #nextpage {
+      @include theme();
+      padding: 15px;
+      border-radius: 10px;
+      text-decoration: none;
+      cursor: pointer;
+      border: 2px solid white;
+      box-shadow: 0 0 10px 0px gray;
+      transition: all 0.5s ease-in-out;
+    }
+    #nextpage:hover {
+      scale: 1.1;
+      box-shadow: 0 0 10px 0px $main-color;
+    }
+  }
+}
+
+// Desktop view
+@media screen and (width>=768px) {
+  .container {
+    .top-section {
+      h1 {
+        font-size: 3rem;
+      }
+    }
+    .middle-section {
+      .slogan {
+        margin: 1rem 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-flow: column nowrap;
+
+        h2 {
+          font-size: xx-large;
+          text-align: center;
+          margin: 0;
+          span {
+            color: $main-color;
+          }
+        }
+        h3 {
+          font-size: x-large;
+          margin: 1rem 0rem;
+          text-align: center;
+        }
+      }
+    }
+    .bottom-section {
+      #nextpage {
+        font-size: 1rem;
+        padding: 20px;
+        border-radius: 15px;
+      }
+    }
+  }
+}
