@@ -5,9 +5,13 @@ const detailsContainer = document.getElementById("heading");
 const buttonContainer = document.getElementById("select-button");
 const racesContainer = document.getElementById("select-race");
 const lapDetailsContainer = document.getElementById("lap-details");
+const nextPageButtons = document.getElementById("nextpage");
+
+const buttons = [];
+let button;
 
 export default function addLapButton(btnNum, runsJSON) {
-  const button = document.createElement("button");
+  button = document.createElement("button");
 
   button.id = `${btnNum}`;
   button.innerHTML = `
@@ -19,16 +23,72 @@ export default function addLapButton(btnNum, runsJSON) {
   `;
 
   buttonContainer.appendChild(button);
+  buttons.push(button);
 
   return button;
 }
 
+let spinner;
+
 export function showSpinner() {
-  spinnerContainer.style = `opacity: 0.7;`;
+  if (spinnerContainer) {
+    spinnerContainer.style = `opacity: 0.7;`;
+    spinner = document.createElement("div");
+    spinner.id = "spinner";
+    spinner.innerHTML = `<svg stroke="rgb(46, 120, 240)" fill="rgb(46, 120, 240)" stroke-width="0" viewBox="0 0 16 16" height="100px" width="100px" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M13.917 7A6.002 6.002 0 0 0 2.083 7H1.071a7.002 7.002 0 0 1 13.858 0h-1.012z"></path>
+    </svg>
+    <style>
+      #spinner{
+        top: calc(50% - 4rem);
+        right: calc(50% - 3rem);
+        z-index:100;
+        position: absolute;
+        animation: spin 2s linear infinite;
+      }
+      
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+    </style>`;
+
+    spinnerContainer.appendChild(spinner);
+  }
+
+  if (racesContainer) {
+    racesContainer.style = `display:none`;
+  }
+
+  if (nextPageButtons) {
+    nextPageButtons.style = `display:none;`;
+  }
+
+  if (buttons.length >= 1) {
+    for (button in buttons) {
+      buttons[button].disabled = true;
+    }
+  }
 }
 
 export function hideSpinner() {
-  spinnerContainer.style = `opacity: 1.0;`;
+  if (spinnerContainer) {
+    spinnerContainer.style = `opacity: 1.0;`;
+    spinnerContainer.removeChild(document.getElementById("spinner"));
+  }
+
+  if (racesContainer) {
+    racesContainer.style = ``;
+  }
+
+  if (nextPageButtons) {
+    nextPageButtons.style = ``;
+  }
+  if (buttons.length >= 1) {
+    for (button in buttons) {
+      buttons[button].disabled = false;
+    }
+  }
 }
 
 export function addHeaderDetails(runsJSON, lapNum) {
@@ -63,7 +123,7 @@ export function addLapDetails(runsJSON, lapNum) {
 
 export function createRaceCard(runsJSON) {
   const anchorContainer = document.createElement("a");
-  anchorContainer.href = "../selectLap/laps.html";
+  anchorContainer.href = "../selectLap/index.html";
   anchorContainer.style = `
     text-decoration: none;
     width: 250px;

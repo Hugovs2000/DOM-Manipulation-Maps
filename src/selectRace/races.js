@@ -1,5 +1,5 @@
 import getAllRuns, { getAllLapsPerRun } from "../api/requests";
-import { createRaceCard } from "../dom/ui-manip";
+import { createRaceCard, hideSpinner, showSpinner } from "../dom/ui-manip";
 import "./races.scss";
 
 let filename;
@@ -21,14 +21,31 @@ const kartingRunCallback = (runsJSON) => {
   createRaceCard(runsJSON);
 };
 
+const allLapsFinallyCallback = () => {
+  hideSpinner();
+};
+
 const allKartingRunsCallback = (allRunsJSON) => {
   if (!allRunsJSON?.[0]) {
     throw new Error("Cannot find Runs");
   }
   filename = allRunsJSON[0];
-  getAllLapsPerRun(filename, kartingRunCallback, (error) =>
-    console.error(error)
+  // showSpinner();
+  getAllLapsPerRun(
+    filename,
+    kartingRunCallback,
+    (error) => console.error(error),
+    allLapsFinallyCallback
   );
 };
 
-getAllRuns(allKartingRunsCallback, (error) => console.error(error));
+const allRunsFinallyCallback = () => {
+  //hidespinner();
+};
+
+showSpinner();
+getAllRuns(
+  allKartingRunsCallback,
+  (error) => console.error(error),
+  allRunsFinallyCallback
+);

@@ -1,3 +1,4 @@
+import { resolve } from "path";
 import { defineConfig } from "vite";
 
 export default defineConfig({
@@ -5,11 +6,12 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-        app: "landing.html",
+        selectLap: resolve(__dirname, "src/selectLap/laps.js"),
+        selectRace: resolve(__dirname, "src/selectRace/races.js"),
       },
     },
   },
   server: {
-    open: "landing.html",
+    open: "index.html",
   },
 });

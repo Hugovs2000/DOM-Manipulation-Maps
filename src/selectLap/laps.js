@@ -1,6 +1,11 @@
 import getAllRuns, { getAllLapsPerRun, getLap } from "../api/requests";
 import generateMap, { animateLap, clearLatLngs } from "../dom/mapsetup";
-import addLapButton, { addHeaderDetails, addLapDetails } from "../dom/ui-manip";
+import addLapButton, {
+  addHeaderDetails,
+  addLapDetails,
+  hideSpinner,
+  showSpinner,
+} from "../dom/ui-manip";
 import { stopTimer } from "../utility/timer";
 import "./laps.scss";
 
@@ -20,6 +25,10 @@ const lapCallback = (lapJSON) => {
   animateLap(lapJSON);
 };
 
+const lapFinallyCallback = () => {
+  hideSpinner();
+};
+
 const kartingRunCallback = (runsJSON) => {
   for (let btnNum = 1; btnNum <= runsJSON.lapSummaries.length; btnNum++) {
     let button = addLapButton(btnNum, runsJSON);
@@ -28,11 +37,22 @@ const kartingRunCallback = (runsJSON) => {
       clearLatLngs();
       stopTimer();
       lapNum = button.id;
-      getLap(filename, lapNum, lapCallback, (error) => console.error(error));
+      showSpinner();
+      getLap(
+        filename,
+        lapNum,
+        lapCallback,
+        (error) => console.error(error),
+        lapFinallyCallback
+      );
       addHeaderDetails(runsJSON, lapNum);
       addLapDetails(runsJSON, lapNum);
     });
   }
+};
+
+const allLapsFinallyCallback = () => {
+  hideSpinner();
 };
 
 const allKartingRunsCallback = (allRunsJSON) => {
@@ -40,13 +60,25 @@ const allKartingRunsCallback = (allRunsJSON) => {
     throw new Error("Cannot find filename");
   }
   filename = allRunsJSON[0];
-  getAllLapsPerRun(filename, kartingRunCallback, (error) =>
-    console.error(error)
+  getAllLapsPerRun(
+    filename,
+    kartingRunCallback,
+    (error) => console.error(error),
+    allLapsFinallyCallback
   );
 };
 
+const allRunsFinallyCallback = () => {
+  // hideSpinner();
+};
+
 function initializeApp() {
-  getAllRuns(allKartingRunsCallback, (error) => console.error(error));
+  showSpinner();
+  getAllRuns(
+    allKartingRunsCallback,
+    (error) => console.error(error),
+    allRunsFinallyCallback
+  );
 }
 
 initializeMap();

@@ -51,8 +51,11 @@ body {
     #select-race {
       display: flex;
 
+      div {
+        transition: all 0.5s ease-in-out;
+        box-shadow: 0 0 1px 0px $main-color;
+      }
       div:hover {
-        transition: 1s;
         scale: 1.05;
         box-shadow: 0 0 10px 5px $main-color;
       }
@@ -100,9 +103,9 @@ body {
       cursor: pointer;
       border: 2px solid white;
       box-shadow: 0 0 10px 0px gray;
+      transition: all 0.5s ease-in-out;
     }
     #nextpage:hover {
-      transition: 0.5s;
       scale: 1.1;
       box-shadow: 0 0 10px 0px $main-color;
     }
