@@ -4,7 +4,14 @@ import "./races.scss";
 
 let filename;
 
-const kartingRunCallback = (runsJSON) => {
+const kartingRunCallback = (runsJSON: {
+  trackName: any;
+  driver: any;
+  sessionName: any;
+  date: any;
+  time: any;
+  lapSummaries: any;
+}) => {
   if (
     !(
       runsJSON?.trackName ||
@@ -25,7 +32,7 @@ const allLapsFinallyCallback = () => {
   hideSpinner();
 };
 
-const allKartingRunsCallback = (allRunsJSON) => {
+const allKartingRunsCallback = (allRunsJSON: any[]) => {
   if (!allRunsJSON?.[0]) {
     throw new Error("Cannot find Runs");
   }
@@ -46,6 +53,6 @@ const allRunsFinallyCallback = () => {
 showSpinner();
 getAllRuns(
   allKartingRunsCallback,
-  (error) => console.error(error),
+  (error: any) => console.error(error),
   allRunsFinallyCallback
 );

@@ -1,6 +1,6 @@
-let timer;
+let timer: number | NodeJS.Timeout | undefined;
 
-export function lapTimer(content) {
+export function lapTimer(content: { (): void; (): void }) {
   timer = setInterval(content, 10);
 }
 

@@ -9,15 +9,14 @@ import addLapButton, {
 import { stopTimer } from "../utility/timer";
 import "./laps.scss";
 
-let map;
-let filename;
-let lapNum = 0;
+let filename: any;
+let lapNum: any;
 
 function initializeMap() {
-  map = generateMap(-29.697911, 30.525229);
+  generateMap(-29.697911, 30.525229);
 }
 
-const lapCallback = (lapJSON) => {
+const lapCallback = (lapJSON: { dataSet: any }) => {
   if (!lapJSON?.dataSet) {
     throw new Error("Cannot find lap");
   }
@@ -29,7 +28,11 @@ const lapFinallyCallback = () => {
   hideSpinner();
 };
 
-const kartingRunCallback = (runsJSON) => {
+const kartingRunCallback = (runsJSON: {
+  lapSummaries: { [x: string]: number }[];
+  trackName: any; // Adjusted type to make trackName required
+  driver: any;
+}) => {
   for (let btnNum = 1; btnNum <= runsJSON.lapSummaries.length; btnNum++) {
     let button = addLapButton(btnNum, runsJSON);
 
@@ -55,7 +58,7 @@ const allLapsFinallyCallback = () => {
   hideSpinner();
 };
 
-const allKartingRunsCallback = (allRunsJSON) => {
+const allKartingRunsCallback = (allRunsJSON: any[]) => {
   if (!allRunsJSON?.[0]) {
     throw new Error("Cannot find filename");
   }
@@ -76,7 +79,7 @@ function initializeApp() {
   showSpinner();
   getAllRuns(
     allKartingRunsCallback,
-    (error) => console.error(error),
+    (error: any) => console.error(error),
     allRunsFinallyCallback
   );
 }

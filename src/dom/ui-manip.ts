@@ -7,10 +7,13 @@ const racesContainer = document.getElementById("select-race");
 const lapDetailsContainer = document.getElementById("lap-details");
 const nextPageButtons = document.getElementById("nextpage");
 
-const buttons = [];
+const buttons: HTMLButtonElement[] = [];
 let button;
 
-export default function addLapButton(btnNum, runsJSON) {
+export default function addLapButton(
+  btnNum: number,
+  runsJSON: { lapSummaries: { [x: string]: number }[] }
+) {
   button = document.createElement("button");
 
   button.id = `${btnNum}`;
@@ -21,8 +24,9 @@ export default function addLapButton(btnNum, runsJSON) {
     Max Speed: ${runsJSON.lapSummaries[btnNum - 1]["Max Speed GPS"] / 10}km/h
   </div>
   `;
-
-  buttonContainer.appendChild(button);
+  if (buttonContainer) {
+    buttonContainer.appendChild(button);
+  }
   buttons.push(button);
 
   return button;
@@ -32,7 +36,7 @@ let spinner;
 
 export function showSpinner() {
   if (spinnerContainer) {
-    spinnerContainer.style = `opacity: 0.7;`;
+    spinnerContainer.setAttribute("style", `opacity: 0.7;`);
     spinner = document.createElement("div");
     spinner.id = "spinner";
     spinner.innerHTML = `<svg stroke="rgb(46, 120, 240)" fill="rgb(46, 120, 240)" stroke-width="0" viewBox="0 0 16 16" height="100px" width="100px" xmlns="http://www.w3.org/2000/svg">
@@ -57,11 +61,11 @@ export function showSpinner() {
   }
 
   if (racesContainer) {
-    racesContainer.style = `display:none`;
+    racesContainer.setAttribute("style", `display:none`);
   }
 
   if (nextPageButtons) {
-    nextPageButtons.style = `display:none;`;
+    nextPageButtons.setAttribute("style", `display:none;`);
   }
 
   if (buttons.length >= 1) {
@@ -73,16 +77,17 @@ export function showSpinner() {
 
 export function hideSpinner() {
   if (spinnerContainer) {
-    spinnerContainer.style = `opacity: 1.0;`;
-    spinnerContainer.removeChild(document.getElementById("spinner"));
+    spinnerContainer.setAttribute("style", `opacity: 1.0;`);
+    const spinnerElement = document.getElementById("spinner");
+    spinnerContainer.removeChild(spinnerElement!);
   }
 
   if (racesContainer) {
-    racesContainer.style = ``;
+    racesContainer.setAttribute("style", ``);
   }
 
   if (nextPageButtons) {
-    nextPageButtons.style = ``;
+    nextPageButtons.setAttribute("style", ``);
   }
   if (buttons.length >= 1) {
     for (button in buttons) {
@@ -91,40 +96,59 @@ export function hideSpinner() {
   }
 }
 
-export function addHeaderDetails(runsJSON, lapNum) {
-  detailsContainer.id = "details";
-  detailsContainer.innerHTML = `${runsJSON.trackName}:<br />${runsJSON.driver} - Lap ${lapNum}`;
+export function addHeaderDetails(
+  runsJSON: { trackName: any; driver: any },
+  lapNum: number
+) {
+  if (detailsContainer) {
+    detailsContainer.id = "details";
+    detailsContainer.innerHTML = `${runsJSON.trackName}:<br />${runsJSON.driver} - Lap ${lapNum}`;
+  }
 }
 
-export function addLapDetails(runsJSON, lapNum) {
-  lapDetailsContainer.innerHTML = `
-
-    <h3>Lap:  <span>${lapNum}</span></h3>
-    <h3>Max speed:  <span>${
-      runsJSON.lapSummaries[lapNum - 1]["Max Speed GPS"] / 10
-    }km/h </span></h3>
-    <h3>Min speed: <span>${
-      runsJSON.lapSummaries[lapNum - 1]["Min Speed GPS"] / 10
-    }km/h</span></h3>
-    <h3>Total Time:  <span>${
-      runsJSON.lapSummaries[lapNum - 1]["time lap"] / 1000
-    }s </span></h3>
-    <h3>Sector 1:  <span>${
-      runsJSON.lapSummaries[lapNum - 1]["time partiel 1"] / 1000
-    }s </span></h3>
-    <h3>Sector 2:  <span>${
-      runsJSON.lapSummaries[lapNum - 1]["time partiel 2"] / 1000
-    }s </span></h3>
-    <h3>Sector 3:  <span>${
-      runsJSON.lapSummaries[lapNum - 1]["time partiel 3"] / 1000
-    }s </span></h3>
-`;
+export function addLapDetails(
+  runsJSON: { lapSummaries: { [x: string]: number }[] },
+  lapNum: number
+) {
+  if (lapDetailsContainer) {
+    lapDetailsContainer.innerHTML = `
+  
+      <h3>Lap:  <span>${lapNum}</span></h3>
+      <h3>Max speed:  <span>${
+        runsJSON.lapSummaries[lapNum - 1]["Max Speed GPS"] / 10
+      }km/h </span></h3>
+      <h3>Min speed: <span>${
+        runsJSON.lapSummaries[lapNum - 1]["Min Speed GPS"] / 10
+      }km/h</span></h3>
+      <h3>Total Time:  <span>${
+        runsJSON.lapSummaries[lapNum - 1]["time lap"] / 1000
+      }s </span></h3>
+      <h3>Sector 1:  <span>${
+        runsJSON.lapSummaries[lapNum - 1]["time partiel 1"] / 1000
+      }s </span></h3>
+      <h3>Sector 2:  <span>${
+        runsJSON.lapSummaries[lapNum - 1]["time partiel 2"] / 1000
+      }s </span></h3>
+      <h3>Sector 3:  <span>${
+        runsJSON.lapSummaries[lapNum - 1]["time partiel 3"] / 1000
+      }s </span></h3>
+  `;
+  }
 }
 
-export function createRaceCard(runsJSON) {
+export function createRaceCard(runsJSON: {
+  date: string;
+  time: string;
+  trackName: any;
+  driver: any;
+  sessionName: any;
+  lapSummaries: string | any[];
+}) {
   const anchorContainer = document.createElement("a");
   anchorContainer.href = "../selectLap/";
-  anchorContainer.style = `
+  anchorContainer.setAttribute(
+    "style",
+    `
     text-decoration: none;
     width: 250px;
     display:flex;
@@ -132,10 +156,13 @@ export function createRaceCard(runsJSON) {
     justify-content: center;
     border-radius: 10px;
     box-shadow: 0 0 10px 0px gray;
-  `;
+  `
+  );
 
   const divContainer = document.createElement("div");
-  divContainer.style = `
+  divContainer.setAttribute(
+    "style",
+    `
     background-color: aliceblue;
     color: rgb(46, 120, 240);
     padding: 1rem;
@@ -147,7 +174,8 @@ export function createRaceCard(runsJSON) {
     display:flex;
     flex-flow: column nowrap;
     align-itmes: center;
-  `;
+  `
+  );
 
   let newDate = format(
     parse(runsJSON.date + " " + runsJSON.time, "dd-MM-yyyy HH:mm", new Date()),
@@ -162,5 +190,8 @@ export function createRaceCard(runsJSON) {
   `;
 
   anchorContainer.appendChild(divContainer);
-  racesContainer.appendChild(anchorContainer);
+
+  if (racesContainer) {
+    racesContainer.appendChild(anchorContainer);
+  }
 }

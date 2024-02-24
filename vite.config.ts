@@ -6,8 +6,8 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-        selectLap: resolve(__dirname, "src/selectLap/laps.js"),
-        selectRace: resolve(__dirname, "src/selectRace/races.js"),
+        selectLap: resolve(__dirname, "src/selectLap/laps.ts"),
+        selectRace: resolve(__dirname, "src/selectRace/races.ts"),
       },
     },
   },
