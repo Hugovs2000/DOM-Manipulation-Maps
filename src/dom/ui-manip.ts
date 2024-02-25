@@ -1,18 +1,18 @@
 import { format, parse } from "date-fns";
+import { IKartLapsPerRun } from "../models/go-kart-types";
 
 const spinnerContainer = document.getElementById("all");
 const detailsContainer = document.getElementById("heading");
 const buttonContainer = document.getElementById("select-button");
 const racesContainer = document.getElementById("select-race");
 const lapDetailsContainer = document.getElementById("lap-details");
-const nextPageButtons = document.getElementById("nextpage");
 
 const buttons: HTMLButtonElement[] = [];
-let button;
+let button: HTMLButtonElement;
 
 export default function addLapButton(
   btnNum: number,
-  runsJSON: { lapSummaries: { [x: string]: number }[] }
+  runsJSON: IKartLapsPerRun
 ) {
   button = document.createElement("button");
 
@@ -32,7 +32,7 @@ export default function addLapButton(
   return button;
 }
 
-let spinner;
+let spinner: HTMLDivElement;
 
 export function showSpinner() {
   if (spinnerContainer) {
@@ -64,12 +64,8 @@ export function showSpinner() {
     racesContainer.setAttribute("style", `display:none`);
   }
 
-  if (nextPageButtons) {
-    nextPageButtons.setAttribute("style", `display:none;`);
-  }
-
   if (buttons.length >= 1) {
-    for (button in buttons) {
+    for (const button in buttons) {
       buttons[button].disabled = true;
     }
   }
@@ -79,25 +75,24 @@ export function hideSpinner() {
   if (spinnerContainer) {
     spinnerContainer.setAttribute("style", `opacity: 1.0;`);
     const spinnerElement = document.getElementById("spinner");
-    spinnerContainer.removeChild(spinnerElement!);
+    if (spinnerElement) {
+      spinnerContainer.removeChild(spinnerElement);
+    }
   }
 
   if (racesContainer) {
     racesContainer.setAttribute("style", ``);
   }
 
-  if (nextPageButtons) {
-    nextPageButtons.setAttribute("style", ``);
-  }
   if (buttons.length >= 1) {
-    for (button in buttons) {
+    for (const button in buttons) {
       buttons[button].disabled = false;
     }
   }
 }
 
 export function addHeaderDetails(
-  runsJSON: { trackName: any; driver: any },
+  runsJSON: { trackName: string; driver: string },
   lapNum: number
 ) {
   if (detailsContainer) {
@@ -106,10 +101,7 @@ export function addHeaderDetails(
   }
 }
 
-export function addLapDetails(
-  runsJSON: { lapSummaries: { [x: string]: number }[] },
-  lapNum: number
-) {
+export function addLapDetails(runsJSON: IKartLapsPerRun, lapNum: number) {
   if (lapDetailsContainer) {
     lapDetailsContainer.innerHTML = `
   
@@ -136,14 +128,7 @@ export function addLapDetails(
   }
 }
 
-export function createRaceCard(runsJSON: {
-  date: string;
-  time: string;
-  trackName: any;
-  driver: any;
-  sessionName: any;
-  lapSummaries: string | any[];
-}) {
+export function createRaceCard(runsJSON: IKartLapsPerRun) {
   const anchorContainer = document.createElement("a");
   anchorContainer.href = "../selectLap/";
   anchorContainer.setAttribute(

@@ -1,53 +1,43 @@
+import { IKartLapsPerRun, ILapDataset } from "../models/go-kart-types";
+
 // Get all sessions
 export default function getAllRuns(
-  callback: {
-    (allRunsJSON: any[]): void;
-    (allRunsJSON: any[]): void;
-    (arg0: any): void;
-  },
-  errorCallback: {
-    (error: any): void;
-    (error: any): void;
-    (arg0: Error): void;
-  },
-  finallyCallback: { (): void; (): void; (): void }
+  callback: (allRunsJSON: string[]) => void,
+  errorCallback: (error: Error) => void,
+  finallyCallback: (() => void) | undefined = undefined
 ) {
   fetch(`https://go-kart-api.onrender.com/runs`)
     .then((response) => response.json())
-    .then((res) => {
+    .then((res: string[]) => {
       if (!res) {
         errorCallback(new Error("Cannot find Run"));
       } else {
         callback(res);
       }
     })
-    .catch((error) => errorCallback(error))
+    .catch((error: Error) => errorCallback(error))
     .finally(() => {
-      finallyCallback();
+      if (finallyCallback) finallyCallback();
     });
 }
 
 //Get all laps per session
 export function getAllLapsPerRun(
-  filename: any,
-  callback: { (runsJSON: any): void; (runsJSON: any): void; (arg0: any): void },
-  errorCallback: {
-    (error: any): void;
-    (error: any): void;
-    (arg0: Error): void;
-  },
-  finallyCallback: { (): void; (): void; (): void }
+  filename: string,
+  callback: (runsJSON: IKartLapsPerRun) => void,
+  errorCallback: (error: Error) => void,
+  finallyCallback: () => void
 ) {
   fetch(`https://go-kart-api.onrender.com/runs/${filename}/`)
     .then((response) => response.json())
-    .then((res) => {
+    .then((res: IKartLapsPerRun) => {
       if (!res?.lapSummaries) {
         errorCallback(new Error("Cannot find Lap"));
       } else {
         callback(res);
       }
     })
-    .catch((error) => errorCallback(error))
+    .catch((error: Error) => errorCallback(error))
     .finally(() => {
       finallyCallback();
     });
@@ -55,22 +45,22 @@ export function getAllLapsPerRun(
 
 // Get by Lap
 export function getLap(
-  filename: any,
+  filename: string,
   lapNum: number,
-  callback: { (lapJSON: any): void; (arg0: any): void },
-  errorCallback: { (error: any): void; (arg0: Error): void },
-  finallyCallback: { (): void; (): void }
+  callback: (lapJSON: ILapDataset) => void,
+  errorCallback: (error: Error) => void,
+  finallyCallback: () => void
 ) {
   fetch(`https://go-kart-api.onrender.com/runs/${filename}/laps/${lapNum}`)
     .then((response) => response.json())
-    .then((res) => {
+    .then((res: ILapDataset) => {
       if (!res) {
         errorCallback(new Error("Cannot get Lap"));
       } else {
         callback(res);
       }
     })
-    .catch((error) => errorCallback(error))
+    .catch((error: Error) => errorCallback(error))
     .finally(() => {
       finallyCallback();
     });

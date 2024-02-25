@@ -1,17 +1,11 @@
 import getAllRuns, { getAllLapsPerRun } from "../api/requests";
 import { createRaceCard, hideSpinner, showSpinner } from "../dom/ui-manip";
+import { IKartLapsPerRun } from "../models/go-kart-types";
 import "./races.scss";
 
 let filename;
 
-const kartingRunCallback = (runsJSON: {
-  trackName: any;
-  driver: any;
-  sessionName: any;
-  date: any;
-  time: any;
-  lapSummaries: any;
-}) => {
+const kartingRunCallback = (runsJSON: IKartLapsPerRun) => {
   if (
     !(
       runsJSON?.trackName ||
@@ -22,7 +16,7 @@ const kartingRunCallback = (runsJSON: {
       runsJSON?.lapSummaries[0]
     )
   ) {
-    throw new Error("Cannot find Run");
+    return;
   }
 
   createRaceCard(runsJSON);
@@ -32,16 +26,15 @@ const allLapsFinallyCallback = () => {
   hideSpinner();
 };
 
-const allKartingRunsCallback = (allRunsJSON: any[]) => {
+const allKartingRunsCallback = (allRunsJSON: string[]) => {
   if (!allRunsJSON?.[0]) {
-    throw new Error("Cannot find Runs");
+    return;
   }
   filename = allRunsJSON[0];
-  // showSpinner();
   getAllLapsPerRun(
     filename,
     kartingRunCallback,
-    (error) => console.error(error),
+    (error: Error) => console.error(error),
     allLapsFinallyCallback
   );
 };
@@ -53,6 +46,6 @@ const allRunsFinallyCallback = () => {
 showSpinner();
 getAllRuns(
   allKartingRunsCallback,
-  (error: any) => console.error(error),
+  (error: Error) => console.error(error),
   allRunsFinallyCallback
 );

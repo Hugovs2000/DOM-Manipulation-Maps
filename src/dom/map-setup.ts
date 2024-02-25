@@ -1,18 +1,26 @@
-import { LatLngExpression, LayerGroup } from "leaflet";
+import {
+  Circle,
+  LatLngExpression,
+  LayerGroup,
+  Map,
+  Polyline,
+  TileLayer,
+} from "leaflet";
+import { ILapDataset } from "../models/go-kart-types";
 import { lapTimer, stopTimer } from "../utility/timer";
 
-let map = L.map("map");
-const circles: LayerGroup = L.layerGroup([]);
-const initialLatLng: LatLngExpression = [-29.697911, 30.525229]; // Replace with your desired coordinates
-let circle = L.circle(initialLatLng);
+let map = new Map("map");
+const circles: LayerGroup = new LayerGroup([]);
+const initialLatLng: LatLngExpression = [-29.697911, 30.525229];
+let circle = new Circle(initialLatLng);
 
-const polylines: LayerGroup = L.layerGroup([]);
+const polylines: LayerGroup = new LayerGroup([]);
 let latlngs: LatLngExpression[] = [];
 
 export default function generateMap(lat: number, long: number) {
   map.setView([lat, long], 18);
 
-  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+  new TileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
     minZoom: 1,
     maxZoom: 20,
     attribution:
@@ -25,7 +33,7 @@ export function addLatLng(lat: number, long: number) {
 }
 
 export function drawPolyline() {
-  const polyline = L.polyline(latlngs, {
+  const polyline = new Polyline(latlngs, {
     color: "purple",
   });
 
@@ -34,7 +42,7 @@ export function drawPolyline() {
 }
 
 export function putCircle(lat: number, long: number) {
-  circle = L.circle([lat, long], {
+  circle = new Circle([lat, long], {
     color: "rgb(46, 120, 240)",
     fillColor: "rgb(46, 120, 240)",
     fillOpacity: 1,
@@ -54,7 +62,7 @@ export function clearLatLngs() {
   latlngs = [];
 }
 
-export function animateLap(lapJSON: { dataSet: string | any[] }) {
+export function animateLap(lapJSON: ILapDataset) {
   let counter = 0;
 
   lapTimer(() => {
