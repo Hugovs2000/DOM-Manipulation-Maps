@@ -1,6 +1,6 @@
-let timer: number | NodeJS.Timeout | undefined;
+let timer: ReturnType<typeof setInterval>;
 
-export function lapTimer(content: { (): void; (): void }) {
+export function lapTimer(content: () => void) {
   timer = setInterval(content, 10);
 }
 
