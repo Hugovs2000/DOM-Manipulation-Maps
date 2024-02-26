@@ -1,6 +1,6 @@
-let timer;
+let timer: ReturnType<typeof setInterval>;
 
-export function lapTimer(content) {
+export function lapTimer(content: () => void) {
   timer = setInterval(content, 10);
 }
 

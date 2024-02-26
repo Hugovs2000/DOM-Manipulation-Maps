@@ -1,25 +1,26 @@
+import "leaflet/dist/leaflet.css";
 import getAllRuns, { getAllLapsPerRun, getLap } from "../api/requests";
-import generateMap, { animateLap, clearLatLngs } from "../dom/mapsetup";
+import generateMap, { animateLap, clearLatLngs } from "../dom/map-setup";
 import addLapButton, {
   addHeaderDetails,
   addLapDetails,
   hideSpinner,
   showSpinner,
 } from "../dom/ui-manip";
+import { IKartLapsPerRun, ILapDataset } from "../models/go-kart-types";
 import { stopTimer } from "../utility/timer";
 import "./laps.scss";
 
-let map;
-let filename;
-let lapNum = 0;
+let filename: string;
+let lapNum: number;
 
 function initializeMap() {
-  map = generateMap(-29.697911, 30.525229);
+  generateMap(-29.697911, 30.525229);
 }
 
-const lapCallback = (lapJSON) => {
+const lapCallback = (lapJSON: ILapDataset) => {
   if (!lapJSON?.dataSet) {
-    throw new Error("Cannot find lap");
+    return;
   }
 
   animateLap(lapJSON);
@@ -29,14 +30,14 @@ const lapFinallyCallback = () => {
   hideSpinner();
 };
 
-const kartingRunCallback = (runsJSON) => {
+const kartingRunCallback = (runsJSON: IKartLapsPerRun) => {
   for (let btnNum = 1; btnNum <= runsJSON.lapSummaries.length; btnNum++) {
     let button = addLapButton(btnNum, runsJSON);
 
     button.addEventListener("click", function btnClick() {
       clearLatLngs();
       stopTimer();
-      lapNum = button.id;
+      lapNum = +button.id;
       showSpinner();
       getLap(
         filename,
@@ -55,9 +56,9 @@ const allLapsFinallyCallback = () => {
   hideSpinner();
 };
 
-const allKartingRunsCallback = (allRunsJSON) => {
+const allKartingRunsCallback = (allRunsJSON: string[]) => {
   if (!allRunsJSON?.[0]) {
-    throw new Error("Cannot find filename");
+    return;
   }
   filename = allRunsJSON[0];
   getAllLapsPerRun(
@@ -68,17 +69,12 @@ const allKartingRunsCallback = (allRunsJSON) => {
   );
 };
 
-const allRunsFinallyCallback = () => {
-  // hideSpinner();
-};
-
 function initializeApp() {
   showSpinner();
-  getAllRuns(
-    allKartingRunsCallback,
-    (error) => console.error(error),
-    allRunsFinallyCallback
-  );
+  getAllRuns(allKartingRunsCallback, (error: Error) => {
+    console.error(error);
+    hideSpinner();
+  });
 }
 
 initializeMap();

@@ -1,32 +1,39 @@
+import {
+  Circle,
+  LatLngExpression,
+  LayerGroup,
+  Map,
+  Polyline,
+  TileLayer,
+} from "leaflet";
+import { ILapDataset } from "../models/go-kart-types";
 import { lapTimer, stopTimer } from "../utility/timer";
 
-let map = L.map("map");
-const circles = L.layerGroup();
-let circle = L.circle();
+let map = new Map("map");
+const circles: LayerGroup = new LayerGroup([]);
+const initialLatLng: LatLngExpression = [-29.697911, 30.525229];
+let circle = new Circle(initialLatLng);
 
-const polylines = L.layerGroup();
-let latlngs = [];
+const polylines: LayerGroup = new LayerGroup([]);
+let latlngs: LatLngExpression[] = [];
 
-export default function generateMap(lat, long) {
-  map = map.setView([lat, long], 18);
+export default function generateMap(lat: number, long: number) {
+  map.setView([lat, long], 18);
 
-  const mapLayer = L.tileLayer(
-    "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
-    {
-      minZoom: 1,
-      maxZoom: 20,
-      attribution:
-        '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-    }
-  ).addTo(map);
+  new TileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    minZoom: 1,
+    maxZoom: 20,
+    attribution:
+      '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+  }).addTo(map);
 }
 
-export function addLatLng(lat, long) {
+export function addLatLng(lat: number, long: number) {
   latlngs.push([lat, long]);
 }
 
 export function drawPolyline() {
-  const polyline = L.polyline(latlngs, {
+  const polyline = new Polyline(latlngs, {
     color: "purple",
   });
 
@@ -34,8 +41,8 @@ export function drawPolyline() {
   polylines.addTo(map);
 }
 
-export function putCircle(lat, long) {
-  circle = L.circle([lat, long], {
+export function putCircle(lat: number, long: number) {
+  circle = new Circle([lat, long], {
     color: "rgb(46, 120, 240)",
     fillColor: "rgb(46, 120, 240)",
     fillOpacity: 1,
@@ -55,7 +62,7 @@ export function clearLatLngs() {
   latlngs = [];
 }
 
-export function animateLap(lapJSON) {
+export function animateLap(lapJSON: ILapDataset) {
   let counter = 0;
 
   lapTimer(() => {
@@ -65,7 +72,7 @@ export function animateLap(lapJSON) {
         lapJSON?.dataSet?.[counter]?.["Lon."]
       )
     ) {
-      throw new Error("Cannot find coordinates");
+      return;
     }
 
     let long = lapJSON.dataSet[counter]["Lon."] * 0.000001;
