@@ -12,7 +12,7 @@ let button: HTMLButtonElement;
 
 export default function addLapButton(
   btnNum: number,
-  runsJSON: IKartLapsPerRun
+  runsJSON: IKartLapsPerRun,
 ) {
   button = document.createElement("button");
 
@@ -21,9 +21,7 @@ export default function addLapButton(
     "h-[47px] w-full bg-blue-400 border-t-[1px] border-slate-50 text-base flex justify-start items-center focus:bg-blue-700";
   button.innerHTML = `
   <div class="m-4 flex items-center justify-start md:w-full">
-    Lap ${btnNum}: Time: 
-    ${runsJSON.lapSummaries[btnNum - 1]["time lap"] / 1000}s - 
-    Max Speed: ${runsJSON.lapSummaries[btnNum - 1]["Max Speed GPS"] / 10}km/h
+    Lap ${btnNum}: Time: ${runsJSON.lapSummaries[btnNum - 1]["time lap"] / 1000}s - Max Speed: ${runsJSON.lapSummaries[btnNum - 1]["Max Speed GPS"] / 10}km/h
   </div>
   `;
   if (buttonContainer) {
@@ -95,7 +93,7 @@ export function hideSpinner() {
 
 export function addHeaderDetails(
   runsJSON: { trackName: string; driver: string },
-  lapNum: number
+  lapNum: number,
 ) {
   if (detailsContainer) {
     detailsContainer.innerHTML = `${runsJSON.trackName}:<br />${runsJSON.driver} - Lap ${lapNum}`;
@@ -105,26 +103,51 @@ export function addHeaderDetails(
 export function addLapDetails(runsJSON: IKartLapsPerRun, lapNum: number) {
   if (lapDetailsContainer) {
     lapDetailsContainer.innerHTML = `
-  
-      <div class="mt-2 text-base">Lap:  <span class= "text-lg text-amber-300">${lapNum}</span></div>
-      <div class="mt-2 text-base">Max speed:  <span class= "text-lg text-amber-300">${
-        runsJSON.lapSummaries[lapNum - 1]["Max Speed GPS"] / 10
-      }km/h </span></div>
-      <div class="mt-2 text-base">Min speed: <span class= "text-lg text-amber-300">${
-        runsJSON.lapSummaries[lapNum - 1]["Min Speed GPS"] / 10
-      }km/h</span></div>
-      <div class="mt-2 text-base">Total Time:  <span class= "text-lg text-amber-300">${
-        runsJSON.lapSummaries[lapNum - 1]["time lap"] / 1000
-      }s </span></div>
-      <div class="mt-2 text-base">Sector 1:  <span class= "text-lg text-amber-300">${
-        runsJSON.lapSummaries[lapNum - 1]["time partiel 1"] / 1000
-      }s </span></div>
-      <div class="mt-2 text-base">Sector 2:  <span class= "text-lg text-amber-300">${
-        runsJSON.lapSummaries[lapNum - 1]["time partiel 2"] / 1000
-      }s </span></div>
-      <div class="mt-2 text-base">Sector 3:  <span class= "text-lg text-amber-300">${
-        runsJSON.lapSummaries[lapNum - 1]["time partiel 3"] / 1000
-      }s </span></div>
+      <div class="flex flex-col gap-2">
+        <div class="lap-details-div">
+          Lap:  
+          <span class= "lap-details-span">
+              ${lapNum}
+          </span>
+        </div>
+        <div class="lap-details-div">
+          Max speed:  
+          <span class= "lap-details-span">
+            ${runsJSON.lapSummaries[lapNum - 1]["Max Speed GPS"] / 10}km/h 
+          </span>
+        </div>
+        <div class="lap-details-div">
+          Min speed: 
+          <span class= "lap-details-span">
+            ${runsJSON.lapSummaries[lapNum - 1]["Min Speed GPS"] / 10}km/h
+          </span>
+        </div>
+        <div class="lap-details-div">
+          Total Time:  
+          <span class= "lap-details-span">
+            ${runsJSON.lapSummaries[lapNum - 1]["time lap"] / 1000}s 
+          </span>
+        </div>
+        <div class="lap-details-div">
+          Sector 1:  
+          <span class= "lap-details-span">
+            ${runsJSON.lapSummaries[lapNum - 1]["time partiel 1"] / 1000}s 
+          </span>
+        </div>
+        <div class="lap-details-div">
+          Sector 2:  
+          <span class= "lap-details-span">
+            ${runsJSON.lapSummaries[lapNum - 1]["time partiel 2"] / 1000}s 
+          </span>
+        </div>
+        <div class="lap-details-div">
+          Sector 3:  
+          <span class= "lap-details-span">
+            ${runsJSON.lapSummaries[lapNum - 1]["time partiel 3"] / 1000}s 
+          </span>
+        </div>
+      </div>
+      
   `;
   }
 }
@@ -137,18 +160,31 @@ export function createRaceCard(runsJSON: IKartLapsPerRun) {
 
   const divContainer = document.createElement("div");
   divContainer.className =
-    "flex flex-col flex-nowrap  items-center bg-blue-50 text-blue-600 p-4 border-4 border-blue-600 rounded-xl text-center w-full transition-all ease-in-out shadow-std hover:scale-105 hover:shadow-blue-600";
+    "flex flex-col flex-nowrap items-center bg-blue-50 text-blue-600 p-4 border-4 border-blue-600 rounded-xl text-center w-full transition-all ease-in-out shadow-std hover:scale-105 hover:shadow-blue-600";
 
   let newDate = format(
     parse(runsJSON.date + " " + runsJSON.time, "dd-MM-yyyy HH:mm", new Date()),
-    "MMM dd yyyy - hh:mm a"
+    "MMM dd yyyy - hh:mm a",
   );
 
   divContainer.innerHTML = `
-    <div class="flex justify-center m-0 text-2xl">${runsJSON.trackName}</div><div class="w-full pt-1 px-0 pb-4 text-lg flex justify-center border-b-2 border-blue-600">${newDate}</div><br>
-    <div class="w-full m-0 flex text-left text-lg">Racer: ${runsJSON.driver}</div><br>
-    <div class="w-full m-0 flex text-left text-lg">Session: ${runsJSON.sessionName}</div><br>
-    <div class="w-full m-0 flex text-left text-lg">Laps: ${runsJSON.lapSummaries.length} </div>
+    <div class="flex justify-center m-0 text-2xl">
+      ${runsJSON.trackName}
+    </div>
+    <div class="w-full pt-1 px-0 pb-4 text-base flex justify-center border-b-2 border-blue-600">
+      ${newDate}
+    </div>
+    <div class="flex flex-col gap-4 mt-4 w-full text-left text-lg">
+      <span>
+        Racer: ${runsJSON.driver}
+      </span>
+      <span>
+        Session: ${runsJSON.sessionName}
+      </span>
+      <span>
+        Laps: ${runsJSON.lapSummaries.length} 
+      </span>
+    </div>
   `;
 
   anchorContainer.appendChild(divContainer);

@@ -44,7 +44,7 @@ const kartingRunCallback = (runsJSON: IKartLapsPerRun) => {
         lapNum,
         lapCallback,
         (error) => console.error(error),
-        lapFinallyCallback
+        lapFinallyCallback,
       );
       addHeaderDetails(runsJSON, lapNum);
       addLapDetails(runsJSON, lapNum);
@@ -65,7 +65,7 @@ const allKartingRunsCallback = (allRunsJSON: string[]) => {
     filename,
     kartingRunCallback,
     (error) => console.error(error),
-    allLapsFinallyCallback
+    allLapsFinallyCallback,
   );
 };
 

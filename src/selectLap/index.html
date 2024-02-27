@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="h-full m-0 font-Anta overflow-y-hidden">
+<html lang="en" class="m-0 h-full overflow-y-hidden font-Anta">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,51 +8,58 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Anta&display=swap"
-      rel="stylesheet" />
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="../index.scss" />
   </head>
 
-  <body class="h-full m-0 font-Anta overflow-y-hidden">
+  <body class="m-0 h-full overflow-y-hidden font-Anta">
     <div
       id="all"
-      tag="container"
-      class="h-full grid grid-rows-[11%_1fr] md:grid-rows-1 md:grid-cols-[400px_1fr]">
+      class="grid h-full grid-rows-[11%_1fr] md:grid-cols-[400px_1fr] md:grid-rows-1"
+    >
       <div
-        tag="top-section"
-        class="bg-blue-600 text-slate-50 z-10 rounded-b-lg border-x-2 border-b-2 border-slate-50 shadow-std flex justify-center items-center md:rounded-l-none md:rounded-r-2xl md:border-l-0 md:border-t-2 md:justify-start md:flex-col md:flex-nowrap md:overflow-hidden">
+        class="z-10 flex items-center justify-center rounded-b-lg border-x-2 border-b-2 border-slate-50 bg-blue-600 text-slate-50 shadow-std md:flex-col md:flex-nowrap md:justify-start md:overflow-hidden md:rounded-l-none md:rounded-r-2xl md:border-l-0 md:border-t-2"
+      >
         <div
-          tag="heading-container"
-          class="text-2xl md:flex md:justify-center md:items-center md:w-full md:h-[100px] md:basis-[100px] md:flex-shrink-0 md:flex-grow-0 md:border-b-[1px] md:border-slate-50">
+          class="text-2xl md:flex md:h-[100px] md:w-full md:flex-shrink-0 md:flex-grow-0 md:basis-[100px] md:items-center md:justify-center md:border-b-[1px] md:border-slate-50"
+        >
           <div id="heading" class="text-center">Go-Kart Simulator</div>
         </div>
         <div
-          tag="lap-selection-container"
-          class="absolute bg-blue-600 text-slate-50 w-full bottom-0 rounded-t-xl border-x-2 border-t-2 border-slate-50 shadow-std transition-all duration-1000 ease-in-out translate-y-[calc(100%-5rem)] hover:translate-y-0 flex items-center justify-center flex-col flex-nowrap md:relative md:bg-transparent md:mt-6 md:border-0 md:shadow-none md:transition-none md:-translate-y-0 md:flex md:items-center md:flex-col md:flex-nowrap md:hover:border-0 md:hover:shadow-none md:hover:translate-y-0">
+          class="absolute bottom-0 flex w-full translate-y-[calc(100%-5rem)] flex-col flex-nowrap items-center justify-center rounded-t-xl border-x-2 border-t-2 border-slate-50 bg-blue-600 text-slate-50 shadow-std transition-all duration-1000 ease-in-out hover:translate-y-0 md:relative md:mt-6 md:flex md:-translate-y-0 md:flex-col md:flex-nowrap md:items-center md:border-0 md:bg-transparent md:shadow-none md:transition-none md:hover:translate-y-0 md:hover:border-0 md:hover:shadow-none"
+        >
           <div
-            class="flex basis-auto flex-shrink-0 flex-grow-0 m-2 h-2 w-12 bg-slate-50 rounded-2xl md:hidden"
-            id="collapse"></div>
-          <div class="mt-2 text-lg md:self-start md:mx-4">Select Lap:</div>
+            class="m-2 flex h-2 w-12 flex-shrink-0 flex-grow-0 basis-auto rounded-2xl bg-slate-50 md:hidden"
+            id="collapse"
+          ></div>
+          <div class="mt-2 text-lg md:mx-4 md:mt-0 md:self-start">
+            Select Lap:
+          </div>
           <div
-            class="overflow-y-scroll overflow-x-hidden h-[200px] w-auto mt-6 flex flex-wrap justify-center items-center md:w-full md:h-[400px]"
-            id="select-button"></div>
+            class="mt-6 flex h-[200px] w-auto flex-wrap items-center justify-center overflow-x-hidden overflow-y-scroll md:h-[400px] md:w-full"
+            id="select-button"
+          ></div>
         </div>
         <div
-          tag="lap-details-container"
-          class="hidden md:border-t-[1px] md:border-slate-50 md:w-full md:flex md:justify-start md:flex-col md:flex-nowrap md:min-h-full">
-          <div class="md:my-6 md:mx-4">Lap details:</div>
+          class="hidden md:flex md:min-h-full md:w-full md:flex-col md:flex-nowrap md:justify-start md:border-t-[1px] md:border-slate-50"
+        >
+          <div class="md:mx-4 md:my-6">Lap details:</div>
           <div
             id="lap-details"
-            class="md:bg-blue-500 md:w-full md:border-y-[1px] md:border-slate-50 md:p-4 md:min-h-full"></div>
+            class="md:min-h-full md:w-full md:border-t-[1px] md:border-slate-50 md:bg-blue-500 md:p-4"
+          ></div>
         </div>
       </div>
-      <div tag="middle-section" class="relative flex flex-col flex-nowrap">
+      <div class="relative flex flex-col flex-nowrap">
         <a
           id="return"
           href="../selectRace/"
-          class="bg-blue-600 text-slate-50 absolute z-[1] top-2.5 right-2 p-2 rounded-xl border-2 border-slate-50 shadow-std transition-all ease-in-out hover:scale-110 hover:shadow-blue-600 md:text-base md:p-5 md:top-6 md:right-6">
+          class="absolute right-2 top-2.5 z-[1] rounded-xl border-2 border-slate-50 bg-blue-600 p-2 text-slate-50 shadow-std transition-all ease-in-out hover:scale-110 hover:shadow-blue-600 md:right-6 md:top-6 md:p-5 md:text-base"
+        >
           Go Back
         </a>
-        <div class="h-full z-0" id="map"></div>
+        <div class="z-0 h-full" id="map"></div>
       </div>
     </div>
 

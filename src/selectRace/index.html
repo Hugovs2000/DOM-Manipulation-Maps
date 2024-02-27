@@ -1,46 +1,35 @@
 <!doctype html>
-<html
-  lang="en"
-  class="h-full m-0 overflow-hidden font-Anta box-border">
+<html lang="en" class="m-0 box-border h-full overflow-hidden font-Anta">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
       href="https://fonts.googleapis.com/css2?family=Anta&display=swap"
-      rel="stylesheet" />
-    <title>Go-Kart Simulator/Select Race</title>
-    <link
       rel="stylesheet"
-      href="../index.scss" />
+    />
+    <title>Go-Kart Simulator/Select Race</title>
+    <link rel="stylesheet" href="../index.scss" />
   </head>
 
-  <body class="h-full m-0 overflow-hidden font-Anta box-border">
-    <div
-      id="all"
-      class="h-full grid grid-rows-[11%_1fr_15%]">
+  <body class="m-0 box-border h-full overflow-hidden font-Anta">
+    <div id="all" class="grid h-full grid-rows-[11%_1fr_15%]">
       <div
-        class="flex justify-center items-center bg-blue-600 text-slate-50 rounded-b-lg border-b-2 border-x-2 border-slate-100 shadow-md shadow-gray-400">
+        class="flex items-center justify-center rounded-b-lg border-x-2 border-b-2 border-slate-100 bg-blue-600 text-slate-50 shadow-md shadow-gray-400"
+      >
         <div class="text-2xl text-slate-50 md:text-5xl">Select a Race</div>
       </div>
-      <div class="flex justify-center items-center flex-col flex-nowrap">
-        <div
-          class="flex"
-          id="select-race"></div>
+      <div class="flex flex-col flex-nowrap items-center justify-center">
+        <div class="flex" id="select-race"></div>
       </div>
-      <div class="flex justify-center items-center">
+      <div class="flex items-center justify-center">
         <a
           href="../"
-          class="p-5 border-2 border-slate-50 rounded-xl text-slate-100 bg-blue-600 shadow-std transition ease-in-out hover:scale-110 hover:shadow-blue-600 md:text-lg"
+          class="rounded-xl border-2 border-slate-50 bg-blue-600 p-5 text-slate-100 shadow-std transition ease-in-out hover:scale-110 hover:shadow-blue-600 md:text-lg"
           >Go Back</a
         >
       </div>
     </div>
 
-    <script
-      type="module"
-      src="./races.ts"
-      defer></script>
+    <script type="module" src="./races.ts" defer></script>
   </body>
 </html>
