@@ -193,3 +193,15 @@ export function createRaceCard(runsJSON: IKartLapsPerRun) {
     racesContainer.appendChild(anchorContainer);
   }
 }
+
+export function toggleActiveButton(id: string) {
+  const allButtons = document.querySelectorAll("button");
+
+  for (const button of allButtons) {
+    if (id === button.id) {
+      button.classList.add("bg-blue-700");
+    } else {
+      button.classList.remove("bg-blue-700");
+    }
+  }
+}
