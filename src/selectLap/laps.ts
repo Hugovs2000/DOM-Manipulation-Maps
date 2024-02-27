@@ -7,9 +7,9 @@ import addLapButton, {
   hideSpinner,
   showSpinner,
 } from "../dom/ui-manip";
+import "../index.scss";
 import { IKartLapsPerRun, ILapDataset } from "../models/go-kart-types";
 import { stopTimer } from "../utility/timer";
-import "./laps.scss";
 
 let filename: string;
 let lapNum: number;

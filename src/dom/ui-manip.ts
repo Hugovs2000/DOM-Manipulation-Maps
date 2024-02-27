@@ -17,8 +17,10 @@ export default function addLapButton(
   button = document.createElement("button");
 
   button.id = `${btnNum}`;
+  button.className =
+    "h-[47px] w-full bg-blue-400 border-t-[1px] border-slate-50 text-base flex justify-start items-center focus:bg-blue-700";
   button.innerHTML = `
-  <div>
+  <div class="m-4 flex items-center justify-start md:w-full">
     Lap ${btnNum}: Time: 
     ${runsJSON.lapSummaries[btnNum - 1]["time lap"] / 1000}s - 
     Max Speed: ${runsJSON.lapSummaries[btnNum - 1]["Max Speed GPS"] / 10}km/h
@@ -96,7 +98,6 @@ export function addHeaderDetails(
   lapNum: number
 ) {
   if (detailsContainer) {
-    detailsContainer.id = "details";
     detailsContainer.innerHTML = `${runsJSON.trackName}:<br />${runsJSON.driver} - Lap ${lapNum}`;
   }
 }
@@ -105,25 +106,25 @@ export function addLapDetails(runsJSON: IKartLapsPerRun, lapNum: number) {
   if (lapDetailsContainer) {
     lapDetailsContainer.innerHTML = `
   
-      <h3>Lap:  <span>${lapNum}</span></h3>
-      <h3>Max speed:  <span>${
+      <div class="mt-2 text-base">Lap:  <span class= "text-lg text-amber-300">${lapNum}</span></div>
+      <div class="mt-2 text-base">Max speed:  <span class= "text-lg text-amber-300">${
         runsJSON.lapSummaries[lapNum - 1]["Max Speed GPS"] / 10
-      }km/h </span></h3>
-      <h3>Min speed: <span>${
+      }km/h </span></div>
+      <div class="mt-2 text-base">Min speed: <span class= "text-lg text-amber-300">${
         runsJSON.lapSummaries[lapNum - 1]["Min Speed GPS"] / 10
-      }km/h</span></h3>
-      <h3>Total Time:  <span>${
+      }km/h</span></div>
+      <div class="mt-2 text-base">Total Time:  <span class= "text-lg text-amber-300">${
         runsJSON.lapSummaries[lapNum - 1]["time lap"] / 1000
-      }s </span></h3>
-      <h3>Sector 1:  <span>${
+      }s </span></div>
+      <div class="mt-2 text-base">Sector 1:  <span class= "text-lg text-amber-300">${
         runsJSON.lapSummaries[lapNum - 1]["time partiel 1"] / 1000
-      }s </span></h3>
-      <h3>Sector 2:  <span>${
+      }s </span></div>
+      <div class="mt-2 text-base">Sector 2:  <span class= "text-lg text-amber-300">${
         runsJSON.lapSummaries[lapNum - 1]["time partiel 2"] / 1000
-      }s </span></h3>
-      <h3>Sector 3:  <span>${
+      }s </span></div>
+      <div class="mt-2 text-base">Sector 3:  <span class= "text-lg text-amber-300">${
         runsJSON.lapSummaries[lapNum - 1]["time partiel 3"] / 1000
-      }s </span></h3>
+      }s </span></div>
   `;
   }
 }
@@ -131,36 +132,12 @@ export function addLapDetails(runsJSON: IKartLapsPerRun, lapNum: number) {
 export function createRaceCard(runsJSON: IKartLapsPerRun) {
   const anchorContainer = document.createElement("a");
   anchorContainer.href = "../selectLap/";
-  anchorContainer.setAttribute(
-    "style",
-    `
-    text-decoration: none;
-    width: 250px;
-    display:flex;
-    align-itmes: center;
-    justify-content: center;
-    border-radius: 10px;
-    box-shadow: 0 0 10px 0px gray;
-  `
-  );
+  anchorContainer.className =
+    "w-60 flex items-center justify-center rounded-xl";
 
   const divContainer = document.createElement("div");
-  divContainer.setAttribute(
-    "style",
-    `
-    background-color: aliceblue;
-    color: rgb(46, 120, 240);
-    padding: 1rem;
-    border: 5px solid rgb(46, 120, 240);
-    border-radius: 10px;
-    cursor: pointer;
-    text-align: center;
-    width: 100%;
-    display:flex;
-    flex-flow: column nowrap;
-    align-itmes: center;
-  `
-  );
+  divContainer.className =
+    "flex flex-col flex-nowrap  items-center bg-blue-50 text-blue-600 p-4 border-4 border-blue-600 rounded-xl text-center w-full transition-all ease-in-out shadow-std hover:scale-105 hover:shadow-blue-600";
 
   let newDate = format(
     parse(runsJSON.date + " " + runsJSON.time, "dd-MM-yyyy HH:mm", new Date()),
@@ -168,10 +145,10 @@ export function createRaceCard(runsJSON: IKartLapsPerRun) {
   );
 
   divContainer.innerHTML = `
-    <h2>${runsJSON.trackName}</h2><h4 id='date'>${newDate}</h4><br>
-    <h3>Racer: ${runsJSON.driver}</h3><br>
-    <h3>Session: ${runsJSON.sessionName}</h3><br>
-    <h3 id='laps'>${runsJSON.lapSummaries.length} Laps</h3>
+    <div class="flex justify-center m-0 text-2xl">${runsJSON.trackName}</div><div class="w-full pt-1 px-0 pb-4 text-lg flex justify-center border-b-2 border-blue-600">${newDate}</div><br>
+    <div class="w-full m-0 flex text-left text-lg">Racer: ${runsJSON.driver}</div><br>
+    <div class="w-full m-0 flex text-left text-lg">Session: ${runsJSON.sessionName}</div><br>
+    <div class="w-full m-0 flex text-left text-lg">Laps: ${runsJSON.lapSummaries.length} </div>
   `;
 
   anchorContainer.appendChild(divContainer);

@@ -1,30 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html
+  lang="en"
+  class="h-full m-0 overflow-hidden font-Anta box-border">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0" />
     <link
       href="https://fonts.googleapis.com/css2?family=Anta&display=swap"
       rel="stylesheet" />
     <title>Go-Kart Simulator</title>
-    <link rel="stylesheet" href="landing.scss" />
+    <link
+      rel="stylesheet"
+      href="index.scss" />
   </head>
-  <body>
-    <div class="container">
-      <div class="top-section">
-        <h1>Go-Kart Simulator</h1>
+  <body class="h-full m-0 overflow-hidden font-Anta box-border">
+    <div class="h-full grid grid-rows-[11%_1fr_15%]">
+      <div
+        class="flex justify-center items-center bg-blue-600 text-slate-100 rounded-b-lg border-b-2 border-x-2 border-slate-100 shadow-md shadow-gray-400">
+        <div class="text-2xl text-slate-50 md:text-5xl">Go-Kart Simulator</div>
       </div>
-      <div class="middle-section">
-        <div class="img-container">
-          <img src="img/logo.jpg" alt="Go-kart as logo" id="logo" />
+      <div
+        class="flex justify-center items-center flex-col flex-nowrap max-w-full">
+        <div class="flex justify-center items-center max-w-full">
+          <img
+            src="img/logo.jpg"
+            alt="Go-kart as logo"
+            class="max-w-full" />
         </div>
-        <div class="slogan">
-          <h2>The ultimate <span>karting</span> adventure,</h2>
-          <h3>where <span>passion</span> meets <span>horsepower!</span></h3>
+        <div
+          class="my-2 md:my-4 flex justify-center items-center flex-col flex-nowrap">
+          <div class="flex justify-center items-center text-2xl md:text-4xl">
+            The ultimate
+            <span class="text-blue-600 mx-1"> karting </span>
+            adventure,
+          </div>
+          <div class="flex justify-center items-center text-xl md:text-2xg">
+            where
+            <span class="text-blue-600 mx-1">passion</span>
+            meets
+            <span class="text-blue-600 mx-1">horsepower!</span>
+          </div>
         </div>
       </div>
-      <div class="bottom-section">
-        <a href="selectRace/" id="nextpage">Go To Races</a>
+      <div class="flex justify-center items-center my-8">
+        <a
+          href="selectRace/"
+          class="p-5 border-2 border-slate-50 rounded-xl text-slate-100 bg-blue-600 shadow-std transition ease-in-out hover:scale-110 hover:shadow-blue-600 md:text-lg">
+          Go To Races
+        </a>
       </div>
     </div>
   </body>
