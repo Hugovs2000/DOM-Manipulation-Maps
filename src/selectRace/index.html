@@ -1,25 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en" class="m-0 box-border h-full overflow-hidden font-Anta">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
       href="https://fonts.googleapis.com/css2?family=Anta&display=swap"
-      rel="stylesheet" />
+      rel="stylesheet"
+    />
     <title>Go-Kart Simulator/Select Race</title>
-    <link rel="stylesheet" href="races.scss" />
+    <link rel="stylesheet" href="../index.scss" />
   </head>
 
-  <body>
-    <div id="all" class="container">
-      <div class="top-section">
-        <h1>Select a Race</h1>
+  <body class="m-0 box-border h-full overflow-hidden font-Anta">
+    <div id="all" class="grid h-full grid-rows-[11%_1fr_15%]">
+      <div
+        class="flex items-center justify-center rounded-b-lg border-x-2 border-b-2 border-slate-100 bg-blue-600 text-slate-50 shadow-md shadow-gray-400"
+      >
+        <div class="text-2xl text-slate-50 md:text-5xl">Select a Race</div>
       </div>
-      <div class="middle-section">
-        <div id="select-race"></div>
+      <div class="flex flex-col flex-nowrap items-center justify-center">
+        <div class="flex" id="select-race"></div>
       </div>
-      <div class="bottom-section">
-        <a href="../" id="nextpage">Go Back</a>
+      <div class="flex items-center justify-center">
+        <a
+          href="../"
+          class="rounded-xl border-2 border-slate-50 bg-blue-600 p-5 text-slate-100 shadow-std transition ease-in-out hover:scale-110 hover:shadow-blue-600 md:text-lg"
+          >Go Back</a
+        >
       </div>
     </div>
 

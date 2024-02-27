@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en" class="m-0 h-full overflow-y-hidden font-Anta">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,30 +8,58 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Anta&display=swap"
-      rel="stylesheet" />
-    <link rel="stylesheet" href="laps.scss" />
-    <!-- <link rel="stylesheet" href="node_modules/leaflet/dist/leaflet.css" /> -->
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../index.scss" />
   </head>
 
-  <body>
-    <div id="all" class="container">
-      <div class="top-section">
-        <div class="heading-container">
-          <h1 id="heading">Go-Kart Simulator</h1>
+  <body class="m-0 h-full overflow-y-hidden font-Anta">
+    <div
+      id="all"
+      class="grid h-full grid-rows-[11%_1fr] md:grid-cols-[400px_1fr] md:grid-rows-1"
+    >
+      <div
+        class="z-10 flex items-center justify-center rounded-b-lg border-x-2 border-b-2 border-slate-50 bg-blue-600 text-slate-50 shadow-std md:flex-col md:flex-nowrap md:justify-start md:overflow-hidden md:rounded-l-none md:rounded-r-2xl md:border-l-0 md:border-t-2"
+      >
+        <div
+          class="text-2xl md:flex md:h-[100px] md:w-full md:flex-shrink-0 md:flex-grow-0 md:basis-[100px] md:items-center md:justify-center md:border-b-[1px] md:border-slate-50"
+        >
+          <div id="heading" class="text-center">Go-Kart Simulator</div>
         </div>
-        <div class="lap-selction-container">
-          <div id="collapse"></div>
-          <h2>Select Lap:</h2>
-          <div id="select-button"></div>
+        <div
+          class="absolute bottom-0 flex w-full translate-y-[calc(100%-5rem)] flex-col flex-nowrap items-center justify-center rounded-t-xl border-x-2 border-t-2 border-slate-50 bg-blue-600 text-slate-50 shadow-std transition-all duration-1000 ease-in-out hover:translate-y-0 md:relative md:mt-6 md:flex md:-translate-y-0 md:flex-col md:flex-nowrap md:items-center md:border-0 md:bg-transparent md:shadow-none md:transition-none md:hover:translate-y-0 md:hover:border-0 md:hover:shadow-none"
+        >
+          <div
+            class="m-2 flex h-2 w-12 flex-shrink-0 flex-grow-0 basis-auto rounded-2xl bg-slate-50 md:hidden"
+            id="collapse"
+          ></div>
+          <div class="mt-2 text-lg md:mx-4 md:mt-0 md:self-start">
+            Select Lap:
+          </div>
+          <div
+            class="mt-6 flex h-[200px] w-auto flex-wrap items-center justify-center overflow-x-hidden overflow-y-scroll md:h-[400px] md:w-full"
+            id="select-button"
+          ></div>
         </div>
-        <div class="lap-details-container">
-          <h2>Lap details:</h2>
-          <div id="lap-details"></div>
+        <div
+          class="hidden md:flex md:min-h-full md:w-full md:flex-col md:flex-nowrap md:justify-start md:border-t-[1px] md:border-slate-50"
+        >
+          <div class="md:mx-4 md:my-6">Lap details:</div>
+          <div
+            id="lap-details"
+            class="md:min-h-full md:w-full md:border-t-[1px] md:border-slate-50 md:bg-blue-500 md:p-4"
+          ></div>
         </div>
       </div>
-      <div class="middle-section">
-        <a id="return" href="../selectRace/">Go Back</a>
-        <div id="map"></div>
+      <div class="relative flex flex-col flex-nowrap">
+        <a
+          id="return"
+          href="../selectRace/"
+          class="absolute right-2 top-2.5 z-[1] rounded-xl border-2 border-slate-50 bg-blue-600 p-2 text-slate-50 shadow-std transition-all ease-in-out hover:scale-110 hover:shadow-blue-600 md:right-6 md:top-6 md:p-5 md:text-base"
+        >
+          Go Back
+        </a>
+        <div class="z-0 h-full" id="map"></div>
       </div>
     </div>
 

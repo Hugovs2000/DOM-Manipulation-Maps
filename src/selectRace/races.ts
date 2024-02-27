@@ -1,7 +1,7 @@
 import getAllRuns, { getAllLapsPerRun } from "../api/requests";
 import { createRaceCard, hideSpinner, showSpinner } from "../dom/ui-manip";
+import "../index.scss";
 import { IKartLapsPerRun } from "../models/go-kart-types";
-import "./races.scss";
 
 let filename;
 
