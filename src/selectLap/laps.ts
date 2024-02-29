@@ -1,5 +1,12 @@
 import "leaflet/dist/leaflet.css";
-import getAllRuns, { getAllLapsPerRun, getLap } from "../api/requests";
+import {
+  allFilesSubject,
+  lapSummarySubject$,
+  runSummarySubject$,
+  signalNewFilenameRequest$,
+  signalNewLapRequest$,
+  signalNewLapsPerRunRequest$,
+} from "../api/requests";
 import generateMap, { animateLap, clearLatLngs } from "../dom/map-setup";
 import addLapButton, {
   addHeaderDetails,
@@ -9,29 +16,31 @@ import addLapButton, {
   toggleActiveButton,
 } from "../dom/ui-manip";
 import "../index.scss";
-import { IKartLapsPerRun, ILapDataset } from "../models/go-kart-types";
 import { stopTimer } from "../utility/timer";
 
-let filename: string;
 let lapNum: number;
+let allFilenames: string[] = [];
 
 function initializeMap() {
   generateMap(-29.697911, 30.525229);
 }
 
-const lapCallback = (lapJSON: ILapDataset) => {
-  if (!lapJSON?.dataSet) {
-    return;
+function initializeAPI() {
+  showSpinner();
+  signalNewFilenameRequest$.next(null);
+}
+
+initializeMap();
+initializeAPI();
+
+allFilesSubject.subscribe((filenames) => {
+  for (const filename of filenames) {
+    allFilenames.push(filename);
+    signalNewLapsPerRunRequest$.next(filename);
   }
+});
 
-  animateLap(lapJSON);
-};
-
-const lapFinallyCallback = () => {
-  hideSpinner();
-};
-
-const kartingRunCallback = (runsJSON: IKartLapsPerRun) => {
+runSummarySubject$.subscribe((runsJSON) => {
   for (let btnNum = 1; btnNum <= runsJSON.lapSummaries.length; btnNum++) {
     let button = addLapButton(btnNum, runsJSON);
 
@@ -41,43 +50,22 @@ const kartingRunCallback = (runsJSON: IKartLapsPerRun) => {
       stopTimer();
       lapNum = +button.id;
       showSpinner();
-      getLap(
-        filename,
-        lapNum,
-        lapCallback,
-        (error) => console.error(error),
-        lapFinallyCallback,
-      );
+      signalNewLapRequest$.next({
+        fileName: allFilenames[0],
+        lapNum: lapNum,
+      });
       addHeaderDetails(runsJSON, lapNum);
       addLapDetails(runsJSON, lapNum);
     });
   }
-};
-
-const allLapsFinallyCallback = () => {
   hideSpinner();
-};
+});
 
-const allKartingRunsCallback = (allRunsJSON: string[]) => {
-  if (!allRunsJSON?.[0]) {
+lapSummarySubject$.subscribe((lapJSON) => {
+  if (!lapJSON?.dataSet) {
     return;
   }
-  filename = allRunsJSON[0];
-  getAllLapsPerRun(
-    filename,
-    kartingRunCallback,
-    (error) => console.error(error),
-    allLapsFinallyCallback,
-  );
-};
 
-function initializeApp() {
-  showSpinner();
-  getAllRuns(allKartingRunsCallback, (error: Error) => {
-    console.error(error);
-    hideSpinner();
-  });
-}
-
-initializeMap();
-initializeApp();
+  animateLap(lapJSON);
+  hideSpinner();
+});
