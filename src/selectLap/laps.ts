@@ -6,6 +6,7 @@ import addLapButton, {
   addLapDetails,
   hideSpinner,
   showSpinner,
+  toggleActiveButton,
 } from "../dom/ui-manip";
 import "../index.scss";
 import { IKartLapsPerRun, ILapDataset } from "../models/go-kart-types";
@@ -35,6 +36,7 @@ const kartingRunCallback = (runsJSON: IKartLapsPerRun) => {
     let button = addLapButton(btnNum, runsJSON);
 
     button.addEventListener("click", function btnClick() {
+      toggleActiveButton(button.id);
       clearLatLngs();
       stopTimer();
       lapNum = +button.id;

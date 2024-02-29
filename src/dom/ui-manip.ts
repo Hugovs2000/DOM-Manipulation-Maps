@@ -18,7 +18,7 @@ export default function addLapButton(
 
   button.id = `${btnNum}`;
   button.className =
-    "h-[47px] w-full bg-blue-400 border-t-[1px] border-slate-50 text-base flex justify-start items-center focus:bg-blue-700";
+    "h-[47px] w-full bg-blue-400 border-t-[1px] border-slate-50 text-base flex justify-start items-center";
   button.innerHTML = `
   <div class="m-4 flex items-center justify-start md:w-full">
     Lap ${btnNum}: Time: ${runsJSON.lapSummaries[btnNum - 1]["time lap"] / 1000}s - Max Speed: ${runsJSON.lapSummaries[btnNum - 1]["Max Speed GPS"] / 10}km/h
@@ -191,5 +191,17 @@ export function createRaceCard(runsJSON: IKartLapsPerRun) {
 
   if (racesContainer) {
     racesContainer.appendChild(anchorContainer);
+  }
+}
+
+export function toggleActiveButton(id: string) {
+  const allButtons = document.querySelectorAll("button");
+
+  for (const button of allButtons) {
+    if (id === button.id) {
+      button.classList.add("bg-blue-700");
+    } else {
+      button.classList.remove("bg-blue-700");
+    }
   }
 }
