@@ -1,10 +1,10 @@
 import { IKartLapsPerRun, ILapDataset } from "../models/go-kart-types";
 
-// Get all sessions
+//Get all sessions
 export default function getAllRuns(
   callback: (allRunsJSON: string[]) => void,
   errorCallback: (error: Error) => void,
-  finallyCallback?: () => void
+  finallyCallback?: () => void,
 ) {
   fetch(`https://go-kart-api.onrender.com/runs`)
     .then((response) => response.json())
@@ -26,7 +26,7 @@ export function getAllLapsPerRun(
   filename: string,
   callback: (runsJSON: IKartLapsPerRun) => void,
   errorCallback: (error: Error) => void,
-  finallyCallback?: () => void
+  finallyCallback?: () => void,
 ) {
   fetch(`https://go-kart-api.onrender.com/runs/${filename}/`)
     .then((response) => response.json())
@@ -49,7 +49,7 @@ export function getLap(
   lapNum: number,
   callback: (lapJSON: ILapDataset) => void,
   errorCallback: (error: Error) => void,
-  finallyCallback?: () => void
+  finallyCallback?: () => void,
 ) {
   fetch(`https://go-kart-api.onrender.com/runs/${filename}/laps/${lapNum}`)
     .then((response) => response.json())

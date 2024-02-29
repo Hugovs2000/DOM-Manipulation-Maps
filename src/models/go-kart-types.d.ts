@@ -1,3 +1,7 @@
+export interface IFileName {
+  filename: string;
+}
+
 export interface IKartLapsPerRun {
   trackName: string;
   sessionName: string;
