@@ -1,51 +1,45 @@
-import getAllRuns, { getAllLapsPerRun } from "../api/requests";
+import {
+  allFilesSubject$,
+  runSummarySubject$,
+  signalNewFilenameRequest$,
+  signalNewLapsPerRunRequest$,
+} from "../api/requests";
 import { createRaceCard, hideSpinner, showSpinner } from "../dom/ui-manip";
 import "../index.scss";
-import { IKartLapsPerRun } from "../models/go-kart-types";
 
-let filename;
+function getData() {
+  showSpinner();
+  signalNewFilenameRequest$.next();
+}
 
-const kartingRunCallback = (runsJSON: IKartLapsPerRun) => {
+getData();
+
+allFilesSubject$.subscribe((filenames) => {
+  if (!filenames) {
+    alert("Could not find filenames for races.");
+    hideSpinner();
+  } else {
+    for (const filename of filenames) {
+      signalNewLapsPerRunRequest$.next(filename);
+    }
+  }
+});
+
+runSummarySubject$.subscribe((runsJSON) => {
   if (
     !(
-      runsJSON?.trackName ||
-      runsJSON?.driver ||
-      runsJSON?.sessionName ||
       runsJSON?.date ||
-      runsJSON?.time ||
-      runsJSON?.lapSummaries[0]
+      runsJSON?.driver ||
+      runsJSON?.trackName ||
+      runsJSON?.lapSummaries ||
+      runsJSON?.sessionName ||
+      runsJSON?.time
     )
   ) {
-    return;
+    alert("Could not find results for races.");
+    hideSpinner();
+  } else {
+    createRaceCard(runsJSON);
+    hideSpinner();
   }
-
-  createRaceCard(runsJSON);
-};
-
-const allLapsFinallyCallback = () => {
-  hideSpinner();
-};
-
-const allKartingRunsCallback = (allRunsJSON: string[]) => {
-  if (!allRunsJSON?.[0]) {
-    return;
-  }
-  filename = allRunsJSON[0];
-  getAllLapsPerRun(
-    filename,
-    kartingRunCallback,
-    (error: Error) => console.error(error),
-    allLapsFinallyCallback
-  );
-};
-
-const allRunsFinallyCallback = () => {
-  //hidespinner();
-};
-
-showSpinner();
-getAllRuns(
-  allKartingRunsCallback,
-  (error: Error) => console.error(error),
-  allRunsFinallyCallback
-);
+});

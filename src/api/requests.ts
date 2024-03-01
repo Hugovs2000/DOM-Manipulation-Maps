@@ -1,67 +1,49 @@
+import { EMPTY, ReplaySubject, catchError, mergeMap, switchMap } from "rxjs";
+import { fromFetch } from "rxjs/fetch";
+import { fromPromise } from "rxjs/internal/observable/innerFrom";
 import { IKartLapsPerRun, ILapDataset } from "../models/go-kart-types";
 
-// Get all sessions
-export default function getAllRuns(
-  callback: (allRunsJSON: string[]) => void,
-  errorCallback: (error: Error) => void,
-  finallyCallback?: () => void
-) {
-  fetch(`https://go-kart-api.onrender.com/runs`)
-    .then((response) => response.json())
-    .then((res: string[]) => {
-      if (!res) {
-        errorCallback(new Error("Cannot find Run"));
-      } else {
-        callback(res);
-      }
-    })
-    .catch((error: Error) => errorCallback(error))
-    .finally(() => {
-      if (finallyCallback) finallyCallback();
-    });
-}
+export const signalNewFilenameRequest$ = new ReplaySubject<void>(1);
+export const signalNewLapsPerRunRequest$ = new ReplaySubject<string>(1);
+export const signalNewLapRequest$ = new ReplaySubject<{
+  fileName: string;
+  lapNum: number;
+}>(1);
 
-//Get all laps per session
-export function getAllLapsPerRun(
-  filename: string,
-  callback: (runsJSON: IKartLapsPerRun) => void,
-  errorCallback: (error: Error) => void,
-  finallyCallback?: () => void
-) {
-  fetch(`https://go-kart-api.onrender.com/runs/${filename}/`)
-    .then((response) => response.json())
-    .then((res: IKartLapsPerRun) => {
-      if (!res?.lapSummaries) {
-        errorCallback(new Error("Cannot find Lap"));
-      } else {
-        callback(res);
-      }
-    })
-    .catch((error: Error) => errorCallback(error))
-    .finally(() => {
-      if (finallyCallback) finallyCallback();
-    });
-}
+export const allFilesSubject$ = signalNewFilenameRequest$.pipe(
+  switchMap(() =>
+    fromFetch("https://go-kart-api.onrender.com/runs").pipe(
+      switchMap((res) => fromPromise<string[]>(res.json())),
+      catchError((error) => {
+        console.error("JSON Parse Fail", error);
+        return EMPTY;
+      }),
+    ),
+  ),
+);
 
-// Get by Lap
-export function getLap(
-  filename: string,
-  lapNum: number,
-  callback: (lapJSON: ILapDataset) => void,
-  errorCallback: (error: Error) => void,
-  finallyCallback?: () => void
-) {
-  fetch(`https://go-kart-api.onrender.com/runs/${filename}/laps/${lapNum}`)
-    .then((response) => response.json())
-    .then((res: ILapDataset) => {
-      if (!res) {
-        errorCallback(new Error("Cannot get Lap"));
-      } else {
-        callback(res);
-      }
-    })
-    .catch((error: Error) => errorCallback(error))
-    .finally(() => {
-      if (finallyCallback) finallyCallback();
-    });
-}
+export const runSummarySubject$ = signalNewLapsPerRunRequest$.pipe(
+  mergeMap((filename) =>
+    fromFetch(`https://go-kart-api.onrender.com/runs/${filename}/`).pipe(
+      switchMap((res) => fromPromise<IKartLapsPerRun>(res.json())),
+      catchError((error) => {
+        console.error("JSON Parse Fail", error);
+        return EMPTY;
+      }),
+    ),
+  ),
+);
+
+export const lapSummarySubject$ = signalNewLapRequest$.pipe(
+  mergeMap(({ fileName, lapNum }) =>
+    fromFetch(
+      `https://go-kart-api.onrender.com/runs/${fileName}/laps/${lapNum}`,
+    ).pipe(
+      switchMap((res) => fromPromise<ILapDataset>(res.json())),
+      catchError((error) => {
+        console.error("JSON Parse Fail", error);
+        return EMPTY;
+      }),
+    ),
+  ),
+);
