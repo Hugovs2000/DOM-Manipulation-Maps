@@ -1,5 +1,5 @@
 import {
-  allFilesSubject,
+  allFilesSubject$,
   runSummarySubject$,
   signalNewFilenameRequest$,
   signalNewLapsPerRunRequest$,
@@ -14,7 +14,7 @@ function getData() {
 
 getData();
 
-allFilesSubject.subscribe((filenames) => {
+allFilesSubject$.subscribe((filenames) => {
   if (!filenames) {
     alert("Could not find filenames for races.");
     hideSpinner();

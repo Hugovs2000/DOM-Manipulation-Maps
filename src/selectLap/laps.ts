@@ -1,6 +1,6 @@
 import "leaflet/dist/leaflet.css";
 import {
-  allFilesSubject,
+  allFilesSubject$,
   lapSummarySubject$,
   runSummarySubject$,
   signalNewFilenameRequest$,
@@ -33,7 +33,7 @@ function initializeAPI() {
 initializeMap();
 initializeAPI();
 
-allFilesSubject.subscribe((filenames) => {
+allFilesSubject$.subscribe((filenames) => {
   if (!filenames) {
     alert("Could not find filenames for races.");
     hideSpinner();

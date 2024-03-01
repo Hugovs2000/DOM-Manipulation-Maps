@@ -10,7 +10,7 @@ export const signalNewLapRequest$ = new ReplaySubject<{
   lapNum: number;
 }>(1);
 
-export const allFilesSubject = signalNewFilenameRequest$.pipe(
+export const allFilesSubject$ = signalNewFilenameRequest$.pipe(
   switchMap(() =>
     fromFetch("https://go-kart-api.onrender.com/runs").pipe(
       switchMap((res) => fromPromise<string[]>(res.json())),
