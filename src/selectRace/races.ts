@@ -9,7 +9,7 @@ import "../index.scss";
 
 function getData() {
   showSpinner();
-  signalNewFilenameRequest$.next(null);
+  signalNewFilenameRequest$.next();
 }
 
 getData();

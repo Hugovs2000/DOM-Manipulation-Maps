@@ -27,7 +27,7 @@ function initializeMap() {
 
 function initializeAPI() {
   showSpinner();
-  signalNewFilenameRequest$.next(null);
+  signalNewFilenameRequest$.next();
 }
 
 initializeMap();

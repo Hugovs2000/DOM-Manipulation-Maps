@@ -3,7 +3,7 @@ import { fromFetch } from "rxjs/fetch";
 import { fromPromise } from "rxjs/internal/observable/innerFrom";
 import { IKartLapsPerRun, ILapDataset } from "../models/go-kart-types";
 
-export const signalNewFilenameRequest$ = new ReplaySubject<null>(1);
+export const signalNewFilenameRequest$ = new ReplaySubject<void>(1);
 export const signalNewLapsPerRunRequest$ = new ReplaySubject<string>(1);
 export const signalNewLapRequest$ = new ReplaySubject<{
   fileName: string;
