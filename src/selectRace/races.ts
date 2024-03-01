@@ -15,12 +15,31 @@ function getData() {
 getData();
 
 allFilesSubject.subscribe((filenames) => {
-  for (const filename of filenames) {
-    signalNewLapsPerRunRequest$.next(filename);
+  if (!filenames) {
+    alert("Could not find filenames for races.");
+    hideSpinner();
+  } else {
+    for (const filename of filenames) {
+      signalNewLapsPerRunRequest$.next(filename);
+    }
   }
 });
 
-runSummarySubject$.subscribe((result) => {
-  createRaceCard(result);
-  hideSpinner();
+runSummarySubject$.subscribe((runsJSON) => {
+  if (
+    !(
+      runsJSON?.date ||
+      runsJSON?.driver ||
+      runsJSON?.trackName ||
+      runsJSON?.lapSummaries ||
+      runsJSON?.sessionName ||
+      runsJSON?.time
+    )
+  ) {
+    alert("Could not find results for races.");
+    hideSpinner();
+  } else {
+    createRaceCard(runsJSON);
+    hideSpinner();
+  }
 });

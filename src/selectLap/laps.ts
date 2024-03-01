@@ -34,38 +34,58 @@ initializeMap();
 initializeAPI();
 
 allFilesSubject.subscribe((filenames) => {
-  for (const filename of filenames) {
-    allFilenames.push(filename);
-    signalNewLapsPerRunRequest$.next(filename);
+  if (!filenames) {
+    alert("Could not find filenames for races.");
+    hideSpinner();
+  } else {
+    for (const filename of filenames) {
+      allFilenames.push(filename);
+      signalNewLapsPerRunRequest$.next(filename);
+    }
   }
 });
 
 runSummarySubject$.subscribe((runsJSON) => {
-  for (let btnNum = 1; btnNum <= runsJSON.lapSummaries.length; btnNum++) {
-    let button = addLapButton(btnNum, runsJSON);
+  if (
+    !(
+      runsJSON?.date ||
+      runsJSON?.driver ||
+      runsJSON?.trackName ||
+      runsJSON?.lapSummaries ||
+      runsJSON?.sessionName ||
+      runsJSON?.time
+    )
+  ) {
+    alert("Could not find results for races.");
+    hideSpinner();
+  } else {
+    for (let btnNum = 1; btnNum <= runsJSON.lapSummaries.length; btnNum++) {
+      let button = addLapButton(btnNum, runsJSON);
 
-    button.addEventListener("click", function btnClick() {
-      toggleActiveButton(button.id);
-      clearLatLngs();
-      stopTimer();
-      lapNum = +button.id;
-      showSpinner();
-      signalNewLapRequest$.next({
-        fileName: allFilenames[0],
-        lapNum: lapNum,
+      button.addEventListener("click", function btnClick() {
+        toggleActiveButton(button.id);
+        clearLatLngs();
+        stopTimer();
+        lapNum = +button.id;
+        showSpinner();
+        signalNewLapRequest$.next({
+          fileName: allFilenames[0],
+          lapNum: lapNum,
+        });
+        addHeaderDetails(runsJSON, lapNum);
+        addLapDetails(runsJSON, lapNum);
       });
-      addHeaderDetails(runsJSON, lapNum);
-      addLapDetails(runsJSON, lapNum);
-    });
+    }
+    hideSpinner();
   }
-  hideSpinner();
 });
 
 lapSummarySubject$.subscribe((lapJSON) => {
   if (!lapJSON?.dataSet) {
-    return;
+    alert("Could not find lap.");
+    hideSpinner();
+  } else {
+    animateLap(lapJSON);
+    hideSpinner();
   }
-
-  animateLap(lapJSON);
-  hideSpinner();
 });
