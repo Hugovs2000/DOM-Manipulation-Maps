@@ -7,23 +7,30 @@ import {
 import { createRaceCard, hideSpinner, showSpinner } from "../dom/ui-manip";
 import "../index.scss";
 
+const allLocalFilenames = localStorage.getItem("Filenames");
+
 function getData() {
-  showSpinner();
   signalNewFilenameRequest$.next();
+  allFilesSubject$.subscribe((filenames) => {
+    if (!filenames) {
+      alert("Could not find filenames for races.");
+      hideSpinner();
+    } else {
+      for (const filename of filenames) {
+        signalNewLapsPerRunRequest$.next(filename);
+        localStorage.setItem("Filenames", filename);
+      }
+    }
+  });
 }
 
-getData();
-
-allFilesSubject$.subscribe((filenames) => {
-  if (!filenames) {
-    alert("Could not find filenames for races.");
-    hideSpinner();
-  } else {
-    for (const filename of filenames) {
-      signalNewLapsPerRunRequest$.next(filename);
-    }
-  }
-});
+if (!allLocalFilenames) {
+  showSpinner();
+  getData();
+} else {
+  showSpinner();
+  signalNewLapsPerRunRequest$.next(allLocalFilenames);
+}
 
 runSummarySubject$.subscribe((runsJSON) => {
   if (
