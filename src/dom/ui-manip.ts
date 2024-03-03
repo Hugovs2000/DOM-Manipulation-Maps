@@ -147,13 +147,13 @@ export function addLapDetails(runsJSON: IKartLapsPerRun, lapNum: number) {
           </span>
         </div>
       </div>
-      
   `;
   }
 }
 
 export function createRaceCard(runsJSON: IKartLapsPerRun) {
   const anchorContainer = document.createElement("a");
+  anchorContainer.id = `${runsJSON.filename}`;
   anchorContainer.href = "../selectLap/";
   anchorContainer.className =
     "w-60 flex items-center justify-center rounded-xl";
@@ -192,6 +192,10 @@ export function createRaceCard(runsJSON: IKartLapsPerRun) {
   if (racesContainer) {
     racesContainer.appendChild(anchorContainer);
   }
+  const myButton = document.getElementById(`${runsJSON.filename}`);
+  myButton?.addEventListener("click", () => {
+    localStorage.setItem("Passed Filename", runsJSON.filename);
+  });
 }
 
 export function toggleActiveButton(id: string) {
@@ -202,6 +206,99 @@ export function toggleActiveButton(id: string) {
       button.classList.add("bg-blue-700");
     } else {
       button.classList.remove("bg-blue-700");
+    }
+  }
+}
+const mapContainer = document.getElementById("map-container");
+
+export function createReplayButton() {
+  const replayButton = document.createElement("button");
+
+  replayButton.id = "reset-button";
+  replayButton.className =
+    "absolute right-[6.2rem] top-2.5 z-[1] rounded-xl border-2 border-slate-50 bg-blue-600 p-2 text-slate-50 shadow-std transition-all ease-in-out hover:scale-110 hover:shadow-blue-600 md:right-[9.5rem] md:top-6 md:p-5 md:text-base";
+  replayButton.innerHTML = "Replay";
+  if (mapContainer) {
+    mapContainer.appendChild(replayButton);
+    return replayButton;
+  }
+}
+
+export function removeReplayButton() {
+  if (mapContainer) {
+    const checkReplayButton = document.getElementById("reset-button");
+    if (checkReplayButton) {
+      mapContainer.removeChild(checkReplayButton);
+    }
+  }
+}
+
+export function moreInfoDropdown(runsJSON: IKartLapsPerRun, lapNum: number) {
+  const moreInfo = document.createElement("div");
+  moreInfo.id = "more-info";
+  moreInfo.className = "md:hidden absolute top-2.5 left-14 dropdown";
+  moreInfo.innerHTML = `
+  <div tabindex="0" role="button" class="rounded-xl border-2 border-slate-50 bg-blue-600 p-2 text-slate-50 shadow-std">More info</div>
+  <div tabindex="0" class="dropdown-content top-14 z-[1] card card-compact w-64 p-2 shadow-std bg-blue-600 text-slate-50 border-2 border-slate-50">
+    <div class="card-body">
+      <div class="flex flex-col gap-2">
+        <div class="lap-details-div">
+          Lap:  
+          <span class= "lap-details-span">
+              ${lapNum}
+          </span>
+        </div>
+        <div class="lap-details-div">
+          Max speed:  
+          <span class= "lap-details-span">
+            ${runsJSON.lapSummaries[lapNum - 1]["Max Speed GPS"] / 10}km/h 
+          </span>
+        </div>
+        <div class="lap-details-div">
+          Min speed: 
+          <span class= "lap-details-span">
+            ${runsJSON.lapSummaries[lapNum - 1]["Min Speed GPS"] / 10}km/h
+          </span>
+        </div>
+        <div class="lap-details-div">
+          Total Time:  
+          <span class= "lap-details-span">
+            ${runsJSON.lapSummaries[lapNum - 1]["time lap"] / 1000}s 
+          </span>
+        </div>
+        <div class="lap-details-div">
+          Sector 1:  
+          <span class= "lap-details-span">
+            ${runsJSON.lapSummaries[lapNum - 1]["time partiel 1"] / 1000}s 
+          </span>
+        </div>
+        <div class="lap-details-div">
+          Sector 2:  
+          <span class= "lap-details-span">
+            ${runsJSON.lapSummaries[lapNum - 1]["time partiel 2"] / 1000}s 
+          </span>
+        </div>
+        <div class="lap-details-div">
+          Sector 3:  
+          <span class= "lap-details-span">
+            ${runsJSON.lapSummaries[lapNum - 1]["time partiel 3"] / 1000}s 
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  `;
+
+  if (mapContainer) {
+    mapContainer.appendChild(moreInfo);
+  }
+}
+
+export function removeMoreInfo() {
+  if (mapContainer) {
+    const checkInfoButton = document.getElementById("more-info");
+    if (checkInfoButton) {
+      mapContainer.removeChild(checkInfoButton);
     }
   }
 }
