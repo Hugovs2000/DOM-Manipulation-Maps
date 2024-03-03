@@ -1,9 +1,7 @@
 import "leaflet/dist/leaflet.css";
 import {
-  allFilesSubject$,
   lapSummarySubject$,
   runSummarySubject$,
-  signalNewFilenameRequest$,
   signalNewLapRequest$,
   signalNewLapsPerRunRequest$,
 } from "../api/requests";
@@ -23,31 +21,19 @@ import "../index.scss";
 import { stopTimer } from "../utility/timer";
 
 let lapNum: number;
-let allFilenames: string[] = [];
+const passedFilename: string | null = localStorage.getItem("Passed Filename");
 
 function initializeMap() {
   generateMap(-29.697911, 30.525229);
 }
 
-function initializeAPI() {
-  showSpinner();
-  signalNewFilenameRequest$.next();
-}
-
 initializeMap();
-initializeAPI();
 
-allFilesSubject$.subscribe((filenames) => {
-  if (!filenames) {
-    alert("Could not find filenames for races.");
-    hideSpinner();
-  } else {
-    for (const filename of filenames) {
-      allFilenames.push(filename);
-      signalNewLapsPerRunRequest$.next(filename);
-    }
-  }
-});
+if (!passedFilename) {
+  location.href = "../selectRace/";
+} else {
+  signalNewLapsPerRunRequest$.next(passedFilename);
+}
 
 runSummarySubject$.subscribe((runsJSON) => {
   if (
@@ -75,7 +61,7 @@ runSummarySubject$.subscribe((runsJSON) => {
         lapNum = +button.id;
         showSpinner();
         signalNewLapRequest$.next({
-          fileName: allFilenames[0],
+          fileName: passedFilename!,
           lapNum: lapNum,
         });
         addHeaderDetails(runsJSON, lapNum);

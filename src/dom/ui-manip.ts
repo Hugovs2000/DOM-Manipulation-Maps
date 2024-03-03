@@ -153,6 +153,7 @@ export function addLapDetails(runsJSON: IKartLapsPerRun, lapNum: number) {
 
 export function createRaceCard(runsJSON: IKartLapsPerRun) {
   const anchorContainer = document.createElement("a");
+  anchorContainer.id = `${runsJSON.filename}`;
   anchorContainer.href = "../selectLap/";
   anchorContainer.className =
     "w-60 flex items-center justify-center rounded-xl";
@@ -191,6 +192,10 @@ export function createRaceCard(runsJSON: IKartLapsPerRun) {
   if (racesContainer) {
     racesContainer.appendChild(anchorContainer);
   }
+  const myButton = document.getElementById(`${runsJSON.filename}`);
+  myButton?.addEventListener("click", () => {
+    localStorage.setItem("Passed Filename", runsJSON.filename);
+  });
 }
 
 export function toggleActiveButton(id: string) {
