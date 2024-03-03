@@ -84,7 +84,6 @@ lapSummarySubject$.subscribe((lapJSON) => {
     hideSpinner();
 
     replayButton?.addEventListener("click", function resetClick() {
-      clearLatLngs();
       stopTimer();
       animateLap(lapJSON);
     });
