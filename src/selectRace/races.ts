@@ -7,7 +7,9 @@ import {
 import { createRaceCard, hideSpinner, showSpinner } from "../dom/ui-manip";
 import "../index.scss";
 
-const allLocalFilenames = localStorage.getItem("Filenames");
+const allLocalFilenames: string[] | null = JSON.parse(
+  localStorage.getItem("Filenames")!,
+);
 
 function getData() {
   signalNewFilenameRequest$.next();
@@ -16,9 +18,9 @@ function getData() {
       alert("Could not find filenames for races.");
       hideSpinner();
     } else {
+      localStorage.setItem("Filenames", JSON.stringify(filenames));
       for (const filename of filenames) {
         signalNewLapsPerRunRequest$.next(filename);
-        localStorage.setItem("Filenames", filename);
       }
     }
   });
@@ -29,7 +31,9 @@ if (!allLocalFilenames) {
   getData();
 } else {
   showSpinner();
-  signalNewLapsPerRunRequest$.next(allLocalFilenames);
+  for (const filename of allLocalFilenames) {
+    signalNewLapsPerRunRequest$.next(filename);
+  }
 }
 
 runSummarySubject$.subscribe((runsJSON) => {
