@@ -214,7 +214,7 @@ const mapContainer = document.getElementById("map-container");
 export function createResetButton() {
   const resetButton = document.createElement("button");
 
-  resetButton.id = "resetButton";
+  resetButton.id = "reset-button";
   resetButton.className =
     "absolute right-[6.2rem] top-2.5 z-[1] rounded-xl border-2 border-slate-50 bg-blue-600 p-2 text-slate-50 shadow-std transition-all ease-in-out hover:scale-110 hover:shadow-blue-600 md:right-[9.5rem] md:top-6 md:p-5 md:text-base";
   resetButton.innerHTML = "Replay";
@@ -226,7 +226,7 @@ export function createResetButton() {
 
 export function removeResetButton() {
   if (mapContainer) {
-    const checkResetButton = document.getElementById("resetButton");
+    const checkResetButton = document.getElementById("reset-button");
     if (checkResetButton) {
       mapContainer.removeChild(checkResetButton);
     }
@@ -235,7 +235,7 @@ export function removeResetButton() {
 
 export function moreInfoDropdown(runsJSON: IKartLapsPerRun, lapNum: number) {
   const moreInfo = document.createElement("div");
-  moreInfo.id = "moreInfo";
+  moreInfo.id = "more-info";
   moreInfo.className = "md:hidden absolute top-2.5 left-14 dropdown";
   moreInfo.innerHTML = `
   <div tabindex="0" role="button" class="rounded-xl border-2 border-slate-50 bg-blue-600 p-2 text-slate-50 shadow-std">More info</div>
@@ -296,7 +296,7 @@ export function moreInfoDropdown(runsJSON: IKartLapsPerRun, lapNum: number) {
 
 export function removeMoreInfo() {
   if (mapContainer) {
-    const checkInfoButton = document.getElementById("moreInfo");
+    const checkInfoButton = document.getElementById("more-info");
     if (checkInfoButton) {
       mapContainer.removeChild(checkInfoButton);
     }
