@@ -9,11 +9,11 @@ import generateMap, { animateLap, clearLatLngs } from "../dom/map-setup";
 import addLapButton, {
   addHeaderDetails,
   addLapDetails,
-  createResetButton,
+  createReplayButton,
   hideSpinner,
   moreInfoDropdown,
   removeMoreInfo,
-  removeResetButton,
+  removeReplayButton,
   showSpinner,
   toggleActiveButton,
 } from "../dom/ui-manip";
@@ -53,7 +53,7 @@ runSummarySubject$.subscribe((runsJSON) => {
       let button = addLapButton(btnNum, runsJSON);
 
       button.addEventListener("click", function btnClick() {
-        removeResetButton();
+        removeReplayButton();
         removeMoreInfo();
         toggleActiveButton(button.id);
         clearLatLngs();
@@ -78,12 +78,12 @@ lapSummarySubject$.subscribe((lapJSON) => {
     alert("Could not find lap.");
     hideSpinner();
   } else {
-    const resetButton = createResetButton();
+    const replayButton = createReplayButton();
 
     animateLap(lapJSON);
     hideSpinner();
 
-    resetButton?.addEventListener("click", function resetClick() {
+    replayButton?.addEventListener("click", function resetClick() {
       clearLatLngs();
       stopTimer();
       animateLap(lapJSON);

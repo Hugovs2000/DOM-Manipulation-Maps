@@ -211,24 +211,24 @@ export function toggleActiveButton(id: string) {
 }
 const mapContainer = document.getElementById("map-container");
 
-export function createResetButton() {
-  const resetButton = document.createElement("button");
+export function createReplayButton() {
+  const replayButton = document.createElement("button");
 
-  resetButton.id = "reset-button";
-  resetButton.className =
+  replayButton.id = "reset-button";
+  replayButton.className =
     "absolute right-[6.2rem] top-2.5 z-[1] rounded-xl border-2 border-slate-50 bg-blue-600 p-2 text-slate-50 shadow-std transition-all ease-in-out hover:scale-110 hover:shadow-blue-600 md:right-[9.5rem] md:top-6 md:p-5 md:text-base";
-  resetButton.innerHTML = "Replay";
+  replayButton.innerHTML = "Replay";
   if (mapContainer) {
-    mapContainer.appendChild(resetButton);
-    return resetButton;
+    mapContainer.appendChild(replayButton);
+    return replayButton;
   }
 }
 
-export function removeResetButton() {
+export function removeReplayButton() {
   if (mapContainer) {
-    const checkResetButton = document.getElementById("reset-button");
-    if (checkResetButton) {
-      mapContainer.removeChild(checkResetButton);
+    const checkReplayButton = document.getElementById("reset-button");
+    if (checkReplayButton) {
+      mapContainer.removeChild(checkReplayButton);
     }
   }
 }
