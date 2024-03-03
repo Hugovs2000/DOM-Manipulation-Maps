@@ -7,7 +7,7 @@ import {
   signalNewLapRequest$,
   signalNewLapsPerRunRequest$,
 } from "../api/requests";
-import generateMap, { animateLap, clearLatLngs } from "../dom/map-setup";
+import generateMap, { animateLap, removePolyline } from "../dom/map-setup";
 import addLapButton, {
   addHeaderDetails,
   addLapDetails,
@@ -64,7 +64,7 @@ runSummarySubject$.subscribe((runsJSON) => {
 
       button.addEventListener("click", function btnClick() {
         toggleActiveButton(button.id);
-        clearLatLngs();
+        removePolyline();
         stopTimer();
         lapNum = +button.id;
         showSpinner();

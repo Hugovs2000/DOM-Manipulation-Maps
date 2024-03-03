@@ -1,21 +1,17 @@
-import {
-  Circle,
-  LatLngExpression,
-  LayerGroup,
-  Map,
-  Polyline,
-  TileLayer,
-} from "leaflet";
+import { CircleMarker, Map, Polyline, TileLayer } from "leaflet";
 import { ILapDataset } from "../models/go-kart-types";
 import { lapTimer, stopTimer } from "../utility/timer";
 
 let map = new Map("map");
-const circles: LayerGroup = new LayerGroup([]);
-const initialLatLng: LatLngExpression = [-29.697911, 30.525229];
-let circle = new Circle(initialLatLng);
 
-const polylines: LayerGroup = new LayerGroup([]);
-let latlngs: LatLngExpression[] = [];
+let circle = new CircleMarker([0, 0], {
+  fillOpacity: 1,
+  radius: 5,
+}).addTo(map);
+
+let polyline = new Polyline([], {
+  color: "purple",
+}).addTo(map);
 
 export default function generateMap(lat: number, long: number) {
   map.setView([lat, long], 18);
@@ -28,38 +24,21 @@ export default function generateMap(lat: number, long: number) {
   }).addTo(map);
 }
 
-export function addLatLng(lat: number, long: number) {
-  latlngs.push([lat, long]);
+export function drawPolyline(lat: number, long: number) {
+  polyline.addLatLng([lat, long]);
 }
 
-export function drawPolyline() {
-  const polyline = new Polyline(latlngs, {
+export function moveCircle(lat: number, long: number) {
+  circle.setLatLng([lat, long]);
+  circle.redraw();
+  circle.bringToFront();
+}
+
+export function removePolyline() {
+  polyline.remove();
+  polyline = new Polyline([], {
     color: "purple",
-  });
-
-  polylines.addLayer(polyline);
-  polylines.addTo(map);
-}
-
-export function putCircle(lat: number, long: number) {
-  circle = new Circle([lat, long], {
-    color: "rgb(46, 120, 240)",
-    fillColor: "rgb(46, 120, 240)",
-    fillOpacity: 1,
-    radius: 3,
-  });
-
-  circles.addLayer(circle);
-  circles.addTo(map);
-}
-
-export function removeLayers() {
-  circles.clearLayers();
-  polylines.clearLayers();
-}
-
-export function clearLatLngs() {
-  latlngs = [];
+  }).addTo(map);
 }
 
 export function animateLap(lapJSON: ILapDataset) {
@@ -78,10 +57,8 @@ export function animateLap(lapJSON: ILapDataset) {
     let long = lapJSON.dataSet[counter]["Lon."] * 0.000001;
     let lat = lapJSON.dataSet[counter]["Lat."] * 0.000001;
 
-    removeLayers();
-    addLatLng(lat, long);
-    drawPolyline();
-    putCircle(lat, long);
+    drawPolyline(lat, long);
+    moveCircle(lat, long);
 
     if (counter < lapJSON.dataSet.length - 1) {
       counter += 1;
