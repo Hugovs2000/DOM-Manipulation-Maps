@@ -1,9 +1,7 @@
 import "leaflet/dist/leaflet.css";
 import {
-  allFilesSubject$,
   lapSummarySubject$,
   runSummarySubject$,
-  signalNewFilenameRequest$,
   signalNewLapRequest$,
   signalNewLapsPerRunRequest$,
 } from "../api/requests";
@@ -19,33 +17,16 @@ import "../index.scss";
 import { stopTimer } from "../utility/timer";
 
 let lapNum: number;
-const passedFilename = localStorage.getItem("Passed Filename");
+const passedFilename: string | null = localStorage.getItem("Passed Filename");
 
 function initializeMap() {
   generateMap(-29.697911, 30.525229);
 }
 
-function initializeAPI() {
-  showSpinner();
-  signalNewFilenameRequest$.next();
-}
-
 initializeMap();
 
 if (!passedFilename) {
-  initializeAPI();
-
-  allFilesSubject$.subscribe((filenames) => {
-    if (!filenames) {
-      alert("Could not find filenames for races.");
-      hideSpinner();
-    } else {
-      for (const filename of filenames) {
-        signalNewLapsPerRunRequest$.next(filename);
-        localStorage.setItem("Passed Filename", `${filename}`);
-      }
-    }
-  });
+  location.href = "../selectRace/";
 } else {
   signalNewLapsPerRunRequest$.next(passedFilename);
 }
