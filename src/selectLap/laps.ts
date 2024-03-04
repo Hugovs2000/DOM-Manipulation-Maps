@@ -8,7 +8,7 @@ import {
 import generateMap, { animateLap, removePolyline } from "../dom/map-setup";
 import addLapButton, {
   addHeaderDetails,
-  addLapDetails,
+  addShadowDom,
   createReplayButton,
   hideSpinner,
   moreInfoDropdown,
@@ -64,9 +64,10 @@ runSummarySubject$.subscribe((runsJSON) => {
           fileName: passedFilename!,
           lapNum: lapNum,
         });
+        document.querySelector("lap-details")?.remove();
         addHeaderDetails(runsJSON, lapNum);
-        addLapDetails(runsJSON, lapNum);
         moreInfoDropdown(runsJSON, lapNum);
+        addShadowDom(runsJSON, lapNum, "#lap-details");
       });
     }
     hideSpinner();

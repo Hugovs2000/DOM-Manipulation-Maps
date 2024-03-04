@@ -5,7 +5,6 @@ const spinnerContainer = document.getElementById("all");
 const detailsContainer = document.getElementById("heading");
 const buttonContainer = document.getElementById("select-button");
 const racesContainer = document.getElementById("select-race");
-const lapDetailsContainer = document.getElementById("lap-details");
 
 const buttons: HTMLButtonElement[] = [];
 let button: HTMLButtonElement;
@@ -100,57 +99,6 @@ export function addHeaderDetails(
   }
 }
 
-export function addLapDetails(runsJSON: IKartLapsPerRun, lapNum: number) {
-  if (lapDetailsContainer) {
-    lapDetailsContainer.innerHTML = `
-      <div class="flex flex-col gap-2">
-        <div class="lap-details-div">
-          Lap:  
-          <span class= "lap-details-span">
-              ${lapNum}
-          </span>
-        </div>
-        <div class="lap-details-div">
-          Max speed:  
-          <span class= "lap-details-span">
-            ${runsJSON.lapSummaries[lapNum - 1]["Max Speed GPS"] / 10}km/h 
-          </span>
-        </div>
-        <div class="lap-details-div">
-          Min speed: 
-          <span class= "lap-details-span">
-            ${runsJSON.lapSummaries[lapNum - 1]["Min Speed GPS"] / 10}km/h
-          </span>
-        </div>
-        <div class="lap-details-div">
-          Total Time:  
-          <span class= "lap-details-span">
-            ${runsJSON.lapSummaries[lapNum - 1]["time lap"] / 1000}s 
-          </span>
-        </div>
-        <div class="lap-details-div">
-          Sector 1:  
-          <span class= "lap-details-span">
-            ${runsJSON.lapSummaries[lapNum - 1]["time partiel 1"] / 1000}s 
-          </span>
-        </div>
-        <div class="lap-details-div">
-          Sector 2:  
-          <span class= "lap-details-span">
-            ${runsJSON.lapSummaries[lapNum - 1]["time partiel 2"] / 1000}s 
-          </span>
-        </div>
-        <div class="lap-details-div">
-          Sector 3:  
-          <span class= "lap-details-span">
-            ${runsJSON.lapSummaries[lapNum - 1]["time partiel 3"] / 1000}s 
-          </span>
-        </div>
-      </div>
-  `;
-  }
-}
-
 export function createRaceCard(runsJSON: IKartLapsPerRun) {
   const anchorContainer = document.createElement("a");
   anchorContainer.id = `${runsJSON.filename}`;
@@ -233,6 +181,41 @@ export function removeReplayButton() {
   }
 }
 
+export function addShadowDom(
+  runsJSON: IKartLapsPerRun,
+  lapNum: number,
+  target: string,
+) {
+  const lapDetails = document.createElement("lap-details");
+  lapDetails.setAttribute("lap", `${lapNum}`);
+  lapDetails.setAttribute(
+    "max-speed",
+    `${runsJSON.lapSummaries[lapNum - 1]["Max Speed GPS"] / 10}`,
+  );
+  lapDetails.setAttribute(
+    "min-speed",
+    `${runsJSON.lapSummaries[lapNum - 1]["Min Speed GPS"] / 10}`,
+  );
+  lapDetails.setAttribute(
+    "total-time",
+    `${runsJSON.lapSummaries[lapNum - 1]["time lap"] / 1000}`,
+  );
+  lapDetails.setAttribute(
+    "sec1-time",
+    `${runsJSON.lapSummaries[lapNum - 1]["time partiel 1"] / 1000}`,
+  );
+  lapDetails.setAttribute(
+    "sec2-time",
+    `${runsJSON.lapSummaries[lapNum - 1]["time partiel 2"] / 1000}`,
+  );
+  lapDetails.setAttribute(
+    "sec3-time",
+    `${runsJSON.lapSummaries[lapNum - 1]["time partiel 3"] / 1000}`,
+  );
+
+  document.querySelector(`${target}`)?.appendChild(lapDetails);
+}
+
 export function moreInfoDropdown(runsJSON: IKartLapsPerRun, lapNum: number) {
   const moreInfo = document.createElement("div");
   moreInfo.id = "more-info";
@@ -240,57 +223,14 @@ export function moreInfoDropdown(runsJSON: IKartLapsPerRun, lapNum: number) {
   moreInfo.innerHTML = `
   <div tabindex="0" role="button" class="rounded-xl border-2 border-slate-50 bg-blue-600 p-2 text-slate-50 shadow-std">More info</div>
   <div tabindex="0" class="dropdown-content top-14 z-[1] card card-compact w-64 p-2 shadow-std bg-blue-600 text-slate-50 border-2 border-slate-50">
-    <div class="card-body">
-      <div class="flex flex-col gap-2">
-        <div class="lap-details-div">
-          Lap:  
-          <span class= "lap-details-span">
-              ${lapNum}
-          </span>
-        </div>
-        <div class="lap-details-div">
-          Max speed:  
-          <span class= "lap-details-span">
-            ${runsJSON.lapSummaries[lapNum - 1]["Max Speed GPS"] / 10}km/h 
-          </span>
-        </div>
-        <div class="lap-details-div">
-          Min speed: 
-          <span class= "lap-details-span">
-            ${runsJSON.lapSummaries[lapNum - 1]["Min Speed GPS"] / 10}km/h
-          </span>
-        </div>
-        <div class="lap-details-div">
-          Total Time:  
-          <span class= "lap-details-span">
-            ${runsJSON.lapSummaries[lapNum - 1]["time lap"] / 1000}s 
-          </span>
-        </div>
-        <div class="lap-details-div">
-          Sector 1:  
-          <span class= "lap-details-span">
-            ${runsJSON.lapSummaries[lapNum - 1]["time partiel 1"] / 1000}s 
-          </span>
-        </div>
-        <div class="lap-details-div">
-          Sector 2:  
-          <span class= "lap-details-span">
-            ${runsJSON.lapSummaries[lapNum - 1]["time partiel 2"] / 1000}s 
-          </span>
-        </div>
-        <div class="lap-details-div">
-          Sector 3:  
-          <span class= "lap-details-span">
-            ${runsJSON.lapSummaries[lapNum - 1]["time partiel 3"] / 1000}s 
-          </span>
-        </div>
-      </div>
+    <div id="lap-details-card" class="card-body">
     </div>
   </div>
   `;
-
   if (mapContainer) {
     mapContainer.appendChild(moreInfo);
+
+    addShadowDom(runsJSON, lapNum, "#lap-details-card");
   }
 }
 
