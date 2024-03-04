@@ -56,7 +56,7 @@ class LabDetails extends HTMLElement {
             font-size: 1rem;
             display: flex;
             flex-flow: column nowrap;
-            gap: 1rem;
+            gap: 0.8rem;
 
             span{
                 color: yellow;
