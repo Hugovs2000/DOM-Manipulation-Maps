@@ -164,7 +164,7 @@ export function createReplayButton() {
 
   replayButton.id = "reset-button";
   replayButton.className =
-    "absolute right-[6.2rem] top-2.5 z-[1] rounded-xl border-2 border-slate-50 bg-blue-600 p-2 text-slate-50 shadow-std transition-all ease-in-out hover:scale-110 hover:shadow-blue-600 md:right-[9.5rem] md:top-6 md:p-5 md:text-base";
+    "absolute right-[6.2rem] top-2.5 z-[1] rounded-xl border-2 border-slate-50 bg-blue-600 p-2 text-slate-50 shadow-std transition-all ease-in-out hover:scale-110 hover:shadow-blue-600 md:right-[9rem] md:top-6 md:p-3 md:text-base";
   replayButton.innerHTML = "Replay";
   if (mapContainer) {
     mapContainer.appendChild(replayButton);
